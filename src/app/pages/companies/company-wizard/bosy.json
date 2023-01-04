@@ -1,0 +1,114 @@
+{
+    "type": " PUB_LTD, PVT_LTD, OPC",
+    "proposedNames": [
+    "XYZ Private Limited",
+    "ABC Private Limited"
+    ],
+    "objectives": [
+    "Help the world",
+    "Conduct Business"
+    ],
+
+
+
+
+    "partners": [
+    {
+    "email": {
+    "email": "mishab@gmail.com"
+    },
+    "role": "MANAGING_DIRECTOR",
+    "share": 50,
+    "firstName": {
+    "name": "Mishab"
+    },
+    "middleName": null,
+    "lastName": {
+    "name": "Musthafa"
+    },
+    "fatherName": "Musthafa",
+    "address": {
+    "line1": "line 1",
+    "line2": "line 2",
+    "state": "Kerala",
+    "country": "India",
+    "pin": "680000"
+    },
+    "mobile": {
+    "number": "1234567890"
+    },
+    "pan": "PAN",
+    "aadhaar": "Aadhar"
+    },
+    {
+    "email": {
+    "email": "haris@gmail.com"
+    },
+    "role": "MANAGING_DIRECTOR",
+    "share": 50,
+    "firstName": {
+    "name": "Haris"
+    },
+    "middleName": null,
+    "lastName": {
+    "name": "Subair"
+    },
+    "fatherName": "Subair KK",
+    "address": {
+    "line1": "line 1",
+    "line2": "line 2",
+    "state": "Kerala",
+    "country": "India",
+    "pin": "680000",
+    "point": null
+    },
+    "mobile": {
+    "number": "9876543210"
+    },
+    "pan": "PAN",
+    "aadhaar": "Aadhar"
+    }
+    ],
+
+
+
+    "registeredAddress": {
+    "line1": "line 1",
+    "line2": "line 2",
+    "state": "Kerala",
+    "country": "India",
+    "pin": "680000"
+    },
+
+
+    "communicationAddress": {
+    "line1": "line 1",
+    "line2": "line 2",
+    "state": "Kerala",
+    "country": "India",
+    "pin": "680000"
+    },
+    "registeredEmail": {
+    "email": "haris@gmail.com"
+    },
+    "registeredMobile": {
+    "number": "9876543210"
+    }
+    }
+    
+
+
+ 
+
+    // if (type.equals(Type.OPC)) {
+    //     if (partners.size() != 1)
+    //         throw new IncorpdException("There can be only 1 share holder in a OPC", HttpStatus.PRECONDITION_FAILED);
+    // }
+
+    // if (!partners.stream().map(partner -> partner.getShare()).reduce(Double::sum).get().equals(100.0))
+    //     throw new IncorpdException("Total Share Holding has to be 100%", HttpStatus.PRECONDITION_FAILED);
+
+    // if (proposedNames.size() < 1 || proposedNames.size() > 4)
+    //     throw new IncorpdException("The Proposed names for a Business should not exceed 2", HttpStatus.PRECONDITION_FAILED);
+
+    

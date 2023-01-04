@@ -1,0 +1,144 @@
+<!-- begin::Header-->
+<div class="card-header align-items-center border-0 mt-4">
+  <h3 class="card-title align-items-start flex-column">
+    <span class="fw-bolder mb-2 text-dark">Due Dates</span>
+    <span class="text-muted fw-bold fs-7">Compliances</span>
+  </h3>
+</div>
+<!-- end::Header-->
+<!-- begin::Body-->
+<div class="card-body pt-5">
+  <!-- begin::Timeline-->
+  <div class="timeline-label" style="overflow: scroll;
+  white-space: nowrap;
+  height: 17vh;">
+    <!-- begin::Item-->
+    <div class="timeline-item" *ngFor="let dates of dueDates">
+      <!-- begin::Label-->
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">{{dates.date}}</div>
+      <!-- end::Label-->
+      <!-- begin::Badge-->
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-warning fs-1"></i>
+      </div>
+      <!-- end::Badge-->
+      <!-- begin::Text-->
+      <div class="fw-mormal timeline-content text-muted ps-3">
+        {{dates.name}}
+      </div>
+      <!-- end::Text-->
+    </div>
+    <!-- end::Item-->
+    <!-- begin::Item-->
+    
+    <!-- <div class="timeline-item">
+      
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">20th Day</div>
+     
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-success fs-1"></i>
+      </div>
+     
+      <div class="timeline-content d-flex">
+        <span class="fw-bolder text-gray-800 ps-3">GSTR 3B</span>
+      </div>
+      
+    </div> -->
+    <!-- end::Item-->
+    <!-- begin::Item-->
+    <!-- <div class="timeline-item">
+      
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">14:37</div>
+      
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-danger fs-1"></i>
+      </div>
+     
+      <div class="timeline-content fw-bolder text-gray-800 ps-3">
+        TDS Filing
+        <a href="#" class="text-primary">USD 700</a>. to ESL
+      </div>
+      
+    </div> -->
+    <!-- end::Item-->
+    <!-- begin::Item-->
+    <!-- <div class="timeline-item">
+      
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
+      
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-primary fs-1"></i>
+      </div>
+      
+      <div class="timeline-content fw-mormal text-muted ps-3">
+        IEC Renewal
+      </div>
+      
+    </div> -->
+    <!-- end::Item-->
+    <!-- begin::Item-->
+    <!-- <div class="timeline-item">
+      
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
+      
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-danger fs-1"></i>
+      </div>
+      
+      <div class="timeline-content fw-bold text-gray-800 ps-3">
+        GST Filing
+        <a href="#" class="text-primary">#XF-2356</a>.
+      </div>
+      
+    </div> -->
+    <!-- end::Item-->
+    <!-- begin::Item-->
+    <!-- <div class="timeline-item">
+      
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
+      
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-primary fs-1"></i>
+      </div>
+     
+      <div class="timeline-content fw-mormal text-muted ps-3">
+        DIR eKYC
+      </div>
+      
+    </div> -->
+    <!-- end::Item-->
+    <!-- begin::Item-->
+    <!-- <div class="timeline-item">
+      
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
+     
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-danger fs-1"></i>
+      </div>
+     
+      <div class="timeline-content fw-bold text-gray-800 ps-3">
+        MCA Annual Filing
+        <a href="#" class="text-primary">#XF-2356</a>.
+      </div>
+      
+    </div> -->
+    <!-- end::Item-->
+    <!-- begin::Item-->
+    <!-- <div class="timeline-item">
+     
+      <div class="timeline-label fw-bolder text-gray-800 fs-6">10:30</div>
+     
+      <div class="timeline-badge">
+        <i class="fa fa-genderless text-success fs-1"></i>
+      </div>
+      
+      <div class="timeline-content fw-mormal text-muted ps-3">
+        AGM Filing 14A
+      </div>
+      
+    </div> -->
+    <!-- end::Item-->
+  </div>
+  <!-- end::Timeline-->
+</div>
+<!-- end: Card Body-->

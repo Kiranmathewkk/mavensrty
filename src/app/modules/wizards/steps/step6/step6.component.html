@@ -1,0 +1,296 @@
+<style>
+  .navstyle {
+    color: blue;
+    border-bottom: 1px solid blue;
+    padding-bottom: 5px;
+    border-width: 5px;
+  }
+
+  hr {
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid black;
+    border-width: 5px;
+  }
+</style>
+
+
+<div class="pb-10 pb-lg-1">
+  <h2 class="fw-bolder text-dark">Partner documents
+    <a class="link-primary fw-bolder fs-8" (click)="load(88000004663)"> &nbsp; Info</a>
+  </h2>
+  <!-- <div class="text-gray-400 fw-bold fs-6">
+    If you need more info, please check out
+    <a href="#" class="link-primary fw-bolder"> Help Page</a>.
+  </div> -->
+</div>
+<div class="pb-10 pb-lg-15">
+  <!-- <div class="d-flex flex-row mb-7 fv-row justify-content-between">
+    <h2 class="fw-bolder text-dark">Upload Partners documents</h2>
+
+    <i *ngIf="showPartner" class="bi bi-chevron-up " (click)="showPartner=!showPartner"></i>
+    <i *ngIf="!showPartner" class="bi bi-chevron-down " (click)="showPartner=!showPartner"></i>
+  </div> -->
+  <div class="text-gray-400 fw-bold fs-6">
+    Needed PAN , Aadhar , Supporting Documents
+    <!-- <a class="link-primary fw-bolder fs-8" (click)="load(88000004663)"> &nbsp; Info</a>  -->
+
+  </div>
+  <!-- <div class="text-gray-400 fw-bold fs-6">
+    If you need more info, please check out
+    <a href="#" class="text-primary fw-bolder">Help Page</a>.
+  </div> -->
+</div>
+
+<div style="transition: opacity 1s linear 2s;">
+
+
+  <div class="tab-slider--nav pb-7">
+
+    <ul class="nav " id="ex1" role="tablist">
+      <li class="nav-item" *ngFor="let partner of partnerData ; let i = index" role="presentation">
+        <a class="nav-link active fs-4" [class.active]="viewMode == i" [ngClass]="{'navstyle': viewMode == i }"
+          rel="tab1" (click)="changeTab(i)">{{partner.firstName.name}}</a>
+
+      </li>
+
+    </ul>
+
+  </div>
+
+  <div class="tab-slider--container" [ngSwitch]="viewMode">
+    <div id="tab1" class="tab-slider--body" *ngSwitchCase="showTab">
+      <div class="fv-row mb-3 row ">
+        <div class="row pt-2 pb-2">
+          <div class="col-lg-6 fv-row">
+            <div class="d-flex flex-column mb-7 fv-row">
+              <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Photo
+                </span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="Please upload a clear, colour passport photo of the partner (only jpg, png format)"></i>
+                <i *ngIf="partnerData[showTab].photo" style="color: green;"
+                  class="bi bi-check2-all ms-2 fs-7"></i></label>
+              <input *ngIf="!partnerData[showTab].photo" type="file" accept="image/jpg,image/jpeg,image/png"
+                class="form-control form-control-solid col-6" placeholder="Upload Document"
+                (change)="partnerDoc($event,4,showTab)" /> -->
+
+              <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Photo
+                </span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="Please upload a clear, colour passport photo of the partner (only jpg, png format)"></i>
+                <i *ngIf="partnerData[showTab].photo" style="color: green;" class="bi bi-check2-all ms-2 fs-7"></i>
+              </label>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                <i *ngIf="partnerData[showTab].photo" class="bi bi-check-circle-fill" style="color:green;"></i>
+                <span style="padding-left: 10px;" *ngIf="partnerData[showTab]?.photoName">
+                  {{partnerData[showTab]?.photoName}}</span>
+                <span *ngIf="!partnerData[showTab].photoName" style="color: white;">ABC</span>
+              </label>
+
+            </div>
+          </div>
+
+          <div class="col-lg-2 fv-row">
+            <div class="pt-8"></div>
+            <label
+              class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+              style="background: white;">
+              Browser
+              <input type="file" style="display: none" accept="image/jpg,image/jpeg,image/png" #fileUploader
+                (change)="partnerDoc($event,4,showTab)" />
+            </label>
+
+
+
+          </div>
+
+        </div>
+        <div class="row pt-2 pb-2">
+          <div class="col-lg-6 fv-row">
+            <div class="d-flex flex-column mb-7 fv-row">
+              <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">PAN
+                  Proof</span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="upload a clear, readable copy (PDF only)"></i>
+                <i *ngIf="partnerData[showTab].panUpload" style="color: green;"
+                  class="bi bi-check2-all ms-2 fs-7"></i></label>
+              <input *ngIf="!partnerData[showTab].panUpload" type="file" accept="application/pdf"
+                class="form-control form-control-solid" placeholder="Upload Document"
+                (change)="partnerDoc($event,1,showTab)" /> -->
+
+              <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">PAN Proof
+                </span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="Please upload a clear, readable copy (PDF only)"></i>
+                <i *ngIf="partnerData[showTab].panUpload" style="color: green;" class="bi bi-check2-all ms-2 fs-7"></i>
+              </label>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                <i *ngIf="partnerData[showTab].panUpload" class="bi bi-check-circle-fill" style="color:green;"></i>
+                <span style="padding-left: 10px;" *ngIf="partnerData[showTab]?.panName">
+                  {{partnerData[showTab].panName}}</span>
+                <span *ngIf="!partnerData[showTab]?.panName" style="color: white;">ABC</span>
+              </label>
+
+            </div>
+          </div>
+          <div class="col-lg-2 fv-row">
+            <div class="pt-8"></div>
+            <label
+              class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+              style="background: white;">
+              Browser
+              <input type="file" style="display: none" accept="application/pdf" #fileUploader
+                (change)="partnerDoc($event,1,showTab)" />
+            </label>
+
+
+
+          </div>
+        </div>
+        <div class="row pt-2 pb-2">
+          <div class="col-lg-6 fv-row">
+            <div class="d-flex flex-column mb-7 fv-row">
+              <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Aadhar
+                  Proof</span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="upload a clear, readable AADHAR card (pdf only)"></i>
+                <i *ngIf="partnerData[showTab].aadharUpload" style="color: green;"
+                  class="bi bi-check2-all ms-2 fs-7"></i>
+              </label><input *ngIf="!partnerData[showTab].aadharUpload" type="file" accept="application/pdf"
+                class="form-control form-control-solid" placeholder="Upload Document"
+                (change)="partnerDoc($event,2,showTab)" /> -->
+
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Aadhar Proof
+                </span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="Please upload a clear, readable copy (PDF only)"></i>
+                <i *ngIf="partnerData[showTab].aadharUpload" style="color: green;" class="bi bi-check2-all ms-2 fs-7"></i>
+              </label>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                <i *ngIf="partnerData[showTab].aadharUpload" class="bi bi-check-circle-fill" style="color:green;"></i>
+                <span style="padding-left: 10px;" *ngIf="partnerData[showTab]?.aadharName">
+                  {{partnerData[showTab].aadharName}}</span>
+                <span *ngIf="!partnerData[showTab]?.aadharName" style="color: white;">ABC</span>
+              </label>
+
+
+            </div>
+          </div>
+          <div class="col-lg-2 fv-row">
+            <div class="pt-8"></div>
+            <label
+              class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+              style="background: white;">
+              Browser
+              <input type="file" style="display: none" accept="application/pdf" #fileUploader
+                (change)="partnerDoc($event,2,showTab)" />
+            </label>
+
+
+
+          </div>
+        </div>
+        <div class="row pt-2 pb-2">
+          <div class="col-lg-6 fv-row">
+            <div class="d-flex flex-column mb-7 fv-row">
+              <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Supporting
+                  Doc</span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="bank statement (last 2 months) with name and address; plus any of the below:
+              Valid Driving license
+              Valid Voter’s ID
+              Valid Passport"></i>
+                <i *ngIf="partnerData[showTab].supportDoc" style="color: green;" class="bi bi-check2-all ms-2 fs-7"></i>
+              </label><input *ngIf="!partnerData[showTab].supportDoc" type="file" accept="application/pdf"
+                class="form-control form-control-solid" placeholder="Upload Document"
+                (change)="partnerDoc($event,3,showTab)" /> -->
+
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Supporting Doc
+                </span><i class="fas fa-exclamation-circle ms-2 fs-7"
+                  ngbTooltip="Please upload a clear, readable copy (PDF only)"></i>
+                <i *ngIf="partnerData[showTab].supportDoc" style="color: green;" class="bi bi-check2-all ms-2 fs-7"></i>
+              </label>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                <i *ngIf="partnerData[showTab].supportDoc" class="bi bi-check-circle-fill" style="color:green;"></i>
+                <span style="padding-left: 10px;" *ngIf="partnerData[showTab]?.supportDocName">
+                  {{partnerData[showTab].supportDocName}}</span>
+                <span *ngIf="!partnerData[showTab]?.supportDocName" style="color: white;">ABC</span>
+              </label>
+
+
+            </div>
+          </div>
+
+          <div class="col-lg-2 fv-row">
+            <div class="pt-8"></div>
+            <label
+              class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+              style="background: white;">
+              Browser
+              <input type="file" style="display: none" accept="application/pdf" #fileUploader
+                (change)="partnerDoc($event,3,showTab)" />
+            </label>
+
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- <div class="container-md">
+
+      <div class="d-flex flex-column mb-7 fv-row">
+        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Photo
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+            <i *ngIf="partner.photo" style="color: green;"class="bi bi-check2-all ms-2 fs-7"></i></label>
+            <input *ngIf="!partner.photo"
+          type="file" accept="image/jpg,image/jpeg," class="form-control form-control-solid" placeholder="Upload Document" (change)="partnerDoc($event,4,i)" />
+      
+
+
+      </div>
+
+      <div class="d-flex flex-column mb-7 fv-row">
+        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">PAN
+            Proof</span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+            <i *ngIf="partner.panUpload" style="color: green;"class="bi bi-check2-all ms-2 fs-7"></i></label>
+            <input *ngIf="!partner.panUpload"
+          type="file" accept="application/pdf,image/jpeg," class="form-control form-control-solid" placeholder="Upload Document" (change)="partnerDoc($event,1,i)" />
+       
+
+
+      </div>
+      
+
+      <div class="d-flex flex-column mb-7 fv-row">
+        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Aadhar
+            Proof</span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+            <i *ngIf="partner.aadharUpload" style="color: green;"class="bi bi-check2-all ms-2 fs-7"></i>
+          </label><input *ngIf="!partner.aadharUpload"
+          type="file" accept="application/pdf,image/jpeg," class="form-control form-control-solid" placeholder="Upload Document" (change)="partnerDoc($event,2,i)"/>
+       
+
+      </div>
+
+      <div class="d-flex flex-column mb-7 fv-row">
+        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Supporting
+            Doc</span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+            <i *ngIf="partner.supportDoc" style="color: green;"class="bi bi-check2-all ms-2 fs-7"></i>
+          </label><input *ngIf="!partner.supportDoc"
+          type="file" accept="application/pdf,image/jpeg," class="form-control form-control-solid" placeholder="Upload Document" (change)="partnerDoc($event,3,i)"/>
+       
+
+
+      </div>
+      
+    </div> -->
+
+
+</div>

@@ -1,0 +1,1413 @@
+<style>
+  .disabled {
+    cursor: none;
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  .myOwnBg {
+    background-color: #F5F8FA;
+  }
+</style>
+
+
+<!-- <div class="card card-xl-stretch mb-xl-8">
+  <div class="card-header border-0">
+    <h3 class="card-title fw-bolder text-dark">Companies</h3>
+    <div class="card-toolbar">
+
+      <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+        <span [inlineSVG]="'./assets/media/icons/duotune/general/gen024.svg'" class="svg-icon svg-icon-2"></span>
+      </button>
+      <app-dropdown-menu1></app-dropdown-menu1>
+
+      <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+        (click)="onAddCompany()">
+        <span [inlineSVG]="'./assets/media/icons/duotune/general/gen035.svg'" class="svg-icon svg-icon-2"> Add
+          Company</span>
+      </button>
+
+    </div> 
+  </div>
+</div> -->
+<div class="mb-xl-8 ms-2 " style="display: flex;
+justify-content: space-between;
+align-items: stretch;">
+
+  <h3 class=" fw-bolder text-dark">Companies</h3>
+  <button type="button" class="btn  btn-primary " style="float: right;" (click)="onAddCompany()">
+    Add Company
+  </button>
+
+
+
+
+</div>
+
+<!-- begin::Header -->
+
+<!-- <div class="card-header border-0 pt-5">
+  <h3 class="card-title align-items-start flex-column">
+    <span class="card-label fw-bolder fs-3 mb-1">Members Statistics</span>
+    <span class="text-muted mt-1 fw-bold fs-7">Over 500 members</span>
+  </h3>
+  <div
+    class="card-toolbar"
+    data-bs-toggle="tooltip"
+    data-bs-placement="top"
+    data-bs-trigger="hover"
+    title="Click to add a user"
+  >
+    <a href="#" class="btn btn-sm btn-light-primary">
+      <span
+        [inlineSVG]="'./assets/media/icons/duotune/arrows/arr075.svg'"
+        class="svg-icon svg-icon-3"
+      ></span>
+      New Member
+    </a>
+  </div>
+</div> -->
+<!-- end::Header -->
+<!-- begin::Body -->
+<div class="card card-xl-stretch mb-xl-8">
+  <div class="card-body py-3" *ngIf="companiesList?.length">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted">
+            <!-- <th class="w-25px">
+            <div
+              class="
+                form-check form-check-sm form-check-custom form-check-solid
+              "
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="1"
+                data-kt-check="true"
+                data-kt-check-target=".widget-9-check"
+              />
+            </div>
+          </th> -->
+            <th class="min-w-150px">Stakeholders</th>
+            <th></th>
+            <th class="min-w-140px">Company</th>
+            <th class="min-w-140px">Status</th>
+            <th class="min-w-120px">Progress</th>
+            <th class="min-w-100px text-end">Actions</th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr *ngFor="let company of companiesList; let i = index">
+            <!-- <td>
+            <div
+              class="
+                form-check form-check-sm form-check-custom form-check-solid
+              "
+            >
+              <input
+                class="form-check-input widget-9-check"
+                type="checkbox"
+                value="1"
+              />
+            </div>
+          </td> -->
+            <td>
+              <div class="d-flex align-items-center">
+                <div class="symbol symbol-45px me-5">
+                  <img src="./assets/media/avatars/business.svg" alt="" />
+                </div>
+                <div class="d-flex justify-content-start flex-row" style="padding-right: 2px;">
+                  <!-- <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
+                  {{company?.proposedNameFirst}}
+                 </a> -->
+                  <span class="text-muted fw-bold text-muted d-block fs-7"
+                    *ngFor="let partner of company.partners;let j = index">
+                    {{partner?.firstName.name}} {{j === company.partners.length -1 ? ' ' : ',&nbsp;' }}
+                  </span>
+
+                  <!-- <span class="text-muted fw-bold text-muted d-block fs-7">
+                  {{company.proposedNameSecond}}
+                </span> -->
+                </div>
+
+              </div>
+            </td>
+            <td>
+              <button *ngIf="!company?.isResume" class="btn " style="background:#DDFBEC ; cursor:none;">
+                Submitted
+              </button>
+              <button *ngIf="company?.isResume" class="btn " style="background: #FDEEDA;cursor:none;">
+                Draft
+              </button>
+            </td>
+            <td>
+              <!-- <a
+              href="#"
+              class="text-dark fw-bolder text-hover-primary d-block fs-6"
+            >
+              Intertico
+            </a> -->
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company?.proposedNameFirst}}
+              </span>
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company.proposedNameSecond}}
+              </span>
+            </td>
+            <td>
+              <!-- <a
+              href="#"
+              class="text-dark fw-bolder text-hover-primary d-block fs-6"
+            >
+              Intertico
+            </a> -->
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company?.status}}
+              </span>
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+
+              </span>
+            </td>
+            <td class="text-end">
+              <div class="d-flex flex-column w-100 me-2">
+                <div class="d-flex flex-stack mb-2">
+                  <span class="text-muted me-2 fs-7 fw-bold">{{company.progress}}</span>
+                </div>
+                <div class="progress h-6px w-100">
+                  <div class="progress-bar bg-primary" role="progressbar" [style.width]="company.progress"></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex justify-content-end flex-shrink-0">
+                <!-- <a class="
+                  btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                  me-1
+                " (click)="companyDetails(company)" title="Company Details">
+                  <span [inlineSVG]="
+                    './assets/media/icons/duotune/general/gen019.svg'
+                  " class="svg-icon svg-icon-3"></span>
+                </a>
+                <a [ngClass]="{ 'disabled': company?.status != 'DOCUMENTS_UPLOADED' && company?.status != 'ADDED' && company?.status != 'PAYMENT_INITIATED' && company?.status != 'DOCUMENTS_PARTIALLY_UPLOADED' }"
+                  (click)="editCompany(company)" title="Resume" class="
+                  btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                  me-1
+                ">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'" class="svg-icon svg-icon-3"></span>
+                </a> -->
+                <a *ngIf="!company?.isResume" (click)="companyDetails(company)"
+                  style="cursor: pointer;text-decoration: underline;text-align: center;">
+                  <h6>View Details</h6>
+                </a>
+                <a *ngIf="company?.isResume" (click)="editCompany(company)"
+                  style="cursor: pointer;text-decoration: underline;text-align: center;">
+                  <h6>Resume Application</h6>
+                </a>
+
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+    <!-- end::Table container -->
+  </div>
+
+  <div class="card-body py-3" *ngIf="!companiesList?.length">
+
+    <h3 class="card-title fw-bolder text-dark ">Please click the + button above to register your first Business in
+      Incorpd.</h3>
+
+  </div>
+  <!-- begin::Body -->
+</div>
+
+
+<app-modal #tab [modalConfig]="modalConfig">
+  <div class=" mb-5 mb-xl-10 ">
+
+    <div class="stepper stepper-links d-flex flex-column " id="kt_create_account_stepper">
+      <div class="container">
+
+
+
+        <div class="stepper-nav mb-5 flex-fill container-fluid " style="overflow-x:scroll;white-space: nowrap;">
+          <div class="stepper-item" [class.active]="viewMode == 'tab1'" (click)="viewMode ='tab1'"
+            [ngClass]="{current: viewMode =='tab1'}">
+            <h6 style="color:gray;">Company</h6>
+            <h3 class="stepper-title">Basic Details</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab2'" (click)="viewMode ='tab2'"
+            [ngClass]="{current: viewMode =='tab2'}">
+            <h6 style="color:gray;">Stakeholders</h6>
+            <h3 class="stepper-title">Partner
+              Details</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab3'" rel="tab3" (click)="viewMode ='tab3'"
+            [ngClass]="{current: viewMode =='tab3'}">
+            <h6 style="color:gray;">Documents</h6>
+            <h3 class="stepper-title">Company
+              Document</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab4'" rel="tab4" (click)="viewMode ='tab4'"
+            [ngClass]="{current: viewMode =='tab4'}">
+            <h6 style="color:gray;">Documents</h6>
+            <h3 class="stepper-title">Partner
+              Document</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab5'" rel="tab5" (click)="viewMode ='tab5'"
+            [ngClass]="{current: viewMode =='tab5'}">
+            <h6 style="color:gray;">Summery</h6>
+            <h3 class="stepper-title">Payment
+              Summery</h3>
+          </div>
+
+
+        </div>
+
+
+
+        <!-- <div class="tab-slider--nav">
+
+        <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" [class.active]="viewMode == 'tab1'" rel="tab1" (click)="viewMode ='tab1'">Basic
+              Details</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab2'" rel="tab2" (click)="viewMode ='tab2'">Partner
+              Details</a>
+          </li>
+
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab3'" rel="tab3" (click)="viewMode ='tab3'">Company
+              Document</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab4'" rel="tab4" (click)="viewMode ='tab4'">Partner
+              Document</a>
+          </li>
+
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab5'" rel="tab5" (click)="viewMode ='tab5'">Payment
+              Summery </a>
+          </li>
+         
+        </ul>
+
+       
+      </div> -->
+
+        <div class="tab-slider--container" [ngSwitch]="viewMode">
+          <div id="tab1" class="tab-slider--body" *ngSwitchCase="'tab1'">
+
+            <div class="row">
+
+
+              <div class="col-lg-6" *ngIf="companydetails?.type == 'OPC'" style="color: white;">
+                <input name="type" type="radio" class="btn-check" id="opc" value="OPC" />
+                <label class="
+                  btn btn-outline btn-outline-dashed btn-outline-default
+                  p-2
+                  d-flex
+                  align-items-center
+                " for="opc">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/communication/com005.svg'"
+                    class="svg-icon svg-icon-2x me-5" style="color: white ;"></span>
+                  <span class="d-block fw-bold text-start">
+                    <span class=" fw-bolder d-block fs-4 mb-2"> One Person Company</span>
+                    <!-- <span class="text-gray-400 fw-bold fs-6">
+        
+                  </span> -->
+                  </span>
+                </label>
+              </div>
+
+              <div *ngIf="companydetails?.type == 'PVT_LTD'" class="col-lg-6">
+                <input name="type" type="radio" class="btn-check" id="pvt" value="PVT_LTD" />
+                <label class="
+                  btn 
+                  p-2
+                  d-flex
+                  align-items-center
+                  mb-10
+                " style="background: black;">
+                  <span [inlineSVG]="'./assets/media/icons/duotune/communication/com005.svg'"
+                    class="svg-icon svg-icon-2x me-5" style="color:white"></span>
+                  <span class="d-block fw-bold text-start">
+                    <span class=" fw-bolder d-block fs-4 mb-2" style="color:white"> Private Limited Company </span>
+                    <!-- <span class="text-gray-400 fw-bold fs-6">
+                
+                  </span> -->
+                  </span>
+                </label>
+              </div>
+
+              <div class="fv-plugins-message-container invalid-feedback">
+                <!-- <ErrorMessage name='type' /> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-10 fv-row">
+                <label class="form-label mb-3 required">Proposed Name Preference 1</label><input type="text"
+                  class="form-control form-control-lg form-control-solid" placeholder="Proposed Name First"
+                  [ngModel]="companydetails?.firstname" disabled />
+
+
+                <!-- <div  class="text-info">The Proposed names for a Business should not exceed 2 </div> -->
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-10 fv-row">
+                <label class="form-label mb-3 required">Proposed Name Preference 2</label><input type="text"
+                  class="form-control form-control-lg form-control-solid" placeholder="Proposed Name Second"
+                  [ngModel]="companydetails?.secondname" disabled />
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="mb-10 fv-row">
+                <label class="form-label mb-3 required">Industry</label>
+                <!-- {{industryList | json}} -->
+                <input type="text" class="form-control form-control-lg form-control-solid"
+                  placeholder="Proposed Name Second" [ngModel]="companydetails?.industry" disabled />
+
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="mb-10 fv-row">
+                <label class="form-label mb-3 required">Objectives</label>
+                <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Objectives"
+                  [ngModel]="companydetails?.objectives" />
+
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <!-- tab2 -->
+          <div id="tab2" class="tab-slider--body" *ngSwitchCase="'tab2'">
+
+            <div *ngFor="let partner of companydetails.partners ; let i = index ">
+              <div class="row fv-row mb-4">
+                <label class="form-label fw-bolder text-dark fs-6">PARTNER: {{i+1}}</label>
+              </div>
+              <div class="row fv-row mb-7">
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">First Name</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text" name="firstName"
+                    [ngModel]="partner?.firstName.name" disabled />
+
+                </div>
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Last Name</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+                    [ngModel]="partner?.lastName.name" disabled />
+
+
+                </div>
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Role</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+                    [ngModel]="partner?.role" disabled />
+
+                </div>
+
+              </div>
+              <!--end::Form group-->
+              <div class="fv-row mb-7 row">
+
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Share</label>
+                  <input class="form-control form-control-lg form-control-solid" type="number"
+                    [ngModel]="partner?.share" disabled />
+
+
+
+
+                </div>
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Gender</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text" [ngModel]="partner?.gender"
+                    disabled />
+
+                </div>
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Educational Qualification</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text"
+                    [ngModel]="partner?.educationalQualification" disabled />
+                </div>
+
+
+              </div>
+
+
+              <div class="fv-row mb-7 row">
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Occupation</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text"
+                    [ngModel]="partner?.occupation" disabled />
+                </div>
+
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Nationality</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text" min="1" max="100"
+                    [ngModel]="partner?.nationality" disabled />
+
+                </div>
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Email</label>
+                  <input class="form-control form-control-lg form-control-solid" type="email"
+                    [ngModel]="partner?.email.email" disabled />
+
+
+
+                </div>
+
+              </div>
+
+              <!--begin::Form group-->
+              <div class="fv-row mb-7 row">
+
+
+                <div class="col-lg-4 fv-row">
+                  <label class="form-label fw-bolder text-dark fs-6">Mobile</label>
+                  <input class="form-control form-control-lg form-control-solid" type="text"
+                    [ngModel]="partner?.mobile.number" disabled />
+
+
+
+                </div>
+
+
+
+              </div>
+              <!--end::Form group-->
+
+
+              <!--begin::Form group-->
+              <div class="fv-row mb-7 row ">
+                <label class="form-label fw-bolder text-dark fs-6">Address </label>
+                <div class="">
+
+                  <div class="row mt-4 mb-7">
+                    <div class="col-lg-4 fv-row">
+                      <label class="form-label fw-bolder text-dark fs-6">Line 1</label>
+                      <input class="form-control form-control-lg form-control-solid" type="text"
+                        [ngModel]="partner?.address.line1" disabled />
+
+                    </div>
+
+                    <div class="col-lg-4 fv-row">
+                      <label class="form-label fw-bolder text-dark fs-6">Line 2</label>
+                      <input class="form-control form-control-lg form-control-solid" type="text"
+                        [ngModel]="partner?.address.line2" disabled />
+                    </div>
+
+                    <div class="col-lg-4 fv-row">
+                      <label class="form-label fw-bolder text-dark fs-6">State </label>
+                      <input class="form-control form-control-lg form-control-solid" type="text"
+                        [ngModel]="partner?.address.state" disabled />
+
+
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4 fv-row">
+                      <label class="form-label fw-bolder text-dark fs-6">Country</label>
+                      <input class="form-control form-control-lg form-control-solid" type="text"
+                        [ngModel]="partner.address.country" disabled />
+
+                    </div>
+                    <div class="col-lg-4 fv-row">
+                      <label class="form-label fw-bolder text-dark fs-6">Pincode</label>
+                      <input class="form-control form-control-lg form-control-solid" type="text"
+                        [ngModel]="partner?.address.pin" disabled />
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+              </div>
+              <!--end::Form group-->
+
+              <!--begin::Form group-->
+
+              <!--end::Form group-->
+
+
+            </div>
+
+
+
+          </div>
+          <div id="tab3" class="tab-slider--body row" *ngSwitchCase="'tab3'">
+
+
+            <div class="tab-slider--nav col-4 border border-1" style="
+          border-radius: 10px;">
+
+
+              <ul class="nav nav-pills nav-fill mb-3 flex-column" id="ex1" role="tablist">
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark  rounded-3" role="presentation">
+
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab1'" rel="tab2-tab1"
+                    (click)="viewMode1 ='tab2-tab1'">
+
+                    <i *ngIf="companydetails.companyDocdown" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    Registered Address Proof</a>
+                </li>
+                <div class="pt-2"></div>
+
+                <li class="nav-item border border-dark rounded-3" role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab2'" rel="tab2-tab2"
+                    (click)="viewMode1 ='tab2-tab2'">
+                    <i *ngIf="companydetails.incorporatedoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    Incorporate Certificate</a>
+                </li>
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark rounded-3 " role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab3'" rel="tab2-tab3"
+                    (click)="viewMode1 ='tab2-tab3'">
+                    <i *ngIf="companydetails.pantandoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    Pan Tan Fee</a>
+                </li>
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark rounded-3 " role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab4'" rel="tab2-tab4"
+                    (click)="viewMode1 ='tab2-tab4'">
+                    <i *ngIf="companydetails.aoadoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    AOA</a>
+                </li>
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark  rounded-3" role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab5'" rel="tab2-tab5"
+                    (click)="viewMode1 ='tab2-tab5'">
+                    <i *ngIf="companydetails.nameapprovaldoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    Name Approval Letter</a>
+                </li>
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark rounded-3" role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab6'" rel="tab2-tab6"
+                    (click)="viewMode1 ='tab2-tab6'">
+                    <i *ngIf="companydetails.nameapplicationdoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    Name Application Challan</a>
+                </li>
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark rounded-3 " role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab7'" rel="tab2-tab7"
+                    (click)="viewMode1 ='tab2-tab7'">
+                    <i *ngIf="companydetails.nameapplicationrejectiondoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    Name Rejection Letter</a>
+                </li>
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark rounded-3 " role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab8'" rel="tab2-tab8"
+                    (click)="viewMode1 ='tab2-tab8'">
+                    <i *ngIf="companydetails.moadoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    MOA</a>
+                </li>
+                <div class="pt-2"></div>
+                <li class="nav-item border border-dark rounded-3 " role="presentation">
+                  <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab9'" rel="tab2-tab9"
+                    (click)="viewMode1 ='tab2-tab9'">
+                    <i *ngIf="companydetails.statefeedoc" class="bi bi-check-circle-fill"
+                      style="color:green;float:left;padding-top: 4px;"></i>
+                    StateFeeChallan</a>
+                </li>
+
+              </ul>
+
+
+            </div>
+
+
+            <div class="tab-slider--container col-8 border border-1 rounded-3" [ngSwitch]="viewMode1">
+              <div id="tab2-tab1" class="tab-slider--body" *ngSwitchCase="'tab2-tab1'">
+
+                <div *ngIf="companydetails.companyDocdown">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                 width: 100%; position: relative;" [src]="companydetails?.companyDoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.companyDoc" height="400px">
+                    </iframe>
+                  </div>
+                  <!-- <div class="embed-responsive embed-responsive-4by3">
+                    <iframe class="embed-responsive-item" [src]="companydetails?.companyDoc"></iframe>
+                  </div> -->
+
+                  <!-- <div class="row fv-row mb-7"> -->
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.companyDocdown}}"
+                      target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+                  <!-- </div> -->
+                </div>
+                <div *ngIf="!companydetails.companyDocdown">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+
+
+              </div>
+              <div id="tab2-tab2" class="tab-slider--body" *ngSwitchCase="'tab2-tab2'">
+
+                <div *ngIf="companydetails.incorporatedoc">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.incorporatedoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.incorporatedoc" height="400px">
+                    </iframe>
+                  </div>
+
+
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button"
+                      href="{{companydetails?.res.INCORPORATION_CERTIFICATE}}" target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.incorporatedoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+
+              </div>
+
+              <div id="tab2-tab3" class="tab-slider--body" *ngSwitchCase="'tab2-tab3'">
+
+                <div *ngIf="companydetails.pantandoc">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.pantandoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.pantandoc" height="400px">
+                    </iframe>
+                  </div>
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.PAN_TAN_CHALLAN}}"
+                      target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.pantandoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+
+              </div>
+              <div id="tab2-tab4" class="tab-slider--body" *ngSwitchCase="'tab2-tab4'">
+
+                <div *ngIf="companydetails.aoadoc">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.aoadoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.aoadoc" height="400px">
+                    </iframe>
+                  </div>
+
+
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.AOA}}"
+                      target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.aoadoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+
+              </div>
+
+              <div id="tab2-tab5" class="tab-slider--body" *ngSwitchCase="'tab2-tab5'">
+                <div *ngIf="companydetails.nameapprovaldoc">
+                  <!-- 
+                  <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.nameapprovaldoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.nameapprovaldoc"
+                      height="400px">
+                    </iframe>
+                  </div>
+
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button"
+                      href="{{companydetails?.res.NAME_APPROVAL_LETTER}}" target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.nameapprovaldoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+
+              </div>
+              <div id="tab2-tab6" class="tab-slider--body" *ngSwitchCase="'tab2-tab6'">
+                <div *ngIf="companydetails.nameapplicationdoc">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.nameapplicationdoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.nameapplicationdoc"
+                      height="400px">
+                    </iframe>
+                  </div>
+
+
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button"
+                      href="{{companydetails?.res.NAME_APPLICATION_CHALLAN}}" target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.nameapplicationdoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+
+              </div>
+
+              <div id="tab2-tab7" class="tab-slider--body" *ngSwitchCase="'tab2-tab7'">
+                <div *ngIf="companydetails.nameapplicationrejectiondoc">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.nameapplicationrejectiondoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.nameapplicationrejectiondoc"
+                      height="400px">
+                    </iframe>
+                  </div>
+
+
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button"
+                      href="{{companydetails?.res.NAME_APPLICATION_REJECTION_LETTER}}" target="_blank"
+                      download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.nameapplicationrejectiondoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;"> Not Uploaded</h3>
+
+                </div>
+
+              </div>
+
+              <div id="tab2-tab8" class="tab-slider--body" *ngSwitchCase="'tab2-tab8'">
+
+                <div *ngIf="companydetails.moadoc">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.moadoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.moadoc" height="400px">
+                    </iframe>
+                  </div>
+
+
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.MOA}}"
+                      target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.moadoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+
+
+              </div>
+
+              <div id="tab2-tab9" class="tab-slider--body" *ngSwitchCase="'tab2-tab9'">
+
+                <div *ngIf="companydetails.statefeedoc">
+
+                  <!-- <iframe style="overflow: hidden; height: 100%;
+                width: 100%; position: relative;" [src]="companydetails?.statefeedoc" frameborder="0"
+                    allowfullscreen></iframe> -->
+
+                  <div class="row">
+                    <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.statefeedoc" height="400px">
+                    </iframe>
+                  </div>
+
+
+
+                  <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                    <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.STATE_FEE_CHALLAN}}"
+                      target="_blank" download="address">
+                      <i class="bi bi-arrow-down"></i>
+                      Download
+                    </a>
+                  </div>
+
+
+
+                </div>
+                <div *ngIf="!companydetails.statefeedoc">
+                  <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+          </div>
+
+          <div id="tab4" class="tab-slider--body row" *ngSwitchCase="'tab4'">
+            <div class="col-4 border border-1 rounded-3">
+              <div class="row" *ngFor="let partner of companydetails?.partnersDoc ; let i = index;">
+
+                <div class="mb-2  border border-1 rounded-3 pt-2 " (click)="toggleDiv(i)"
+                  [ngClass]="{'myOwnBg': showTab === i  }">
+                  <label class="form-label mb-3 p-2 ">Partner: {{partner?.name}}
+
+                  </label>
+                  <i *ngIf="showTab != i" class="bi bi-chevron-right"
+                    style="float:right;font-size:20px;padding-top: 5px;"></i>
+                  <i *ngIf="showTab === i" class="bi bi-chevron-down"
+                    style="float:right;font-size:20px ;padding-top: 5px;"></i>
+
+                </div>
+
+
+
+                <div *ngIf="showTab == i" class="tab-slider--nav ">
+
+                  <ul class="nav nav-pills nav-fill mb-3 flex-column" id="ex1" role="tablist">
+                    <li class="nav-item border border-dark rounded-3" role="presentation">
+                      <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab1'+i" rel="tab3-tab1{{i}}"
+                        (click)="loadImage(i,1)">
+                        Passport Photo</a>
+                    </li>
+                    <div class="pt-2"></div>
+                    <li class="nav-item border border-dark rounded-3" role="presentation">
+                      <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab2'+i" rel="tab3-tab2{{i}}"
+                        (click)="loadImage(i,2)">
+                        PAN</a>
+                    </li>
+                    <div class="pt-2"></div>
+                    <li class="nav-item border border-dark rounded-3" role="presentation">
+                      <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab3'+i" rel="tab3-tab3{{i}}"
+                        (click)="loadImage(i,3)">
+                        Supporting Document</a>
+                    </li>
+                    <div class="pt-2"></div>
+                    <li class="nav-item border border-dark rounded-3" role="presentation">
+                      <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab4'+i" rel="tab3-tab4{{i}}"
+                        (click)="loadImage(i,4)">
+                        Aadhar</a>
+                    </li>
+
+
+                  </ul>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+            </div>
+            <div class="col-8 border border-1 rounded-3">
+              <div *ngIf="downloadIframeDoc">
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="showIframeDoc" height="400px">
+                  </iframe>
+                </div>
+                <div style="position: absolute;
+                  top: 25%;
+                  left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button" href="{{downloadIframeDoc}}" target="_blank"
+                    download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+              </div>
+              <div *ngIf="!downloadIframeDoc">
+                <h3 style="position: absolute;
+                  top: 50%;
+                  left: 60%;
+                  transform: translate(-50%, -50%);
+                  font-family: 'Georgia';
+                 
+                  font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+          <div id="tab5" class="tab-slider--body" *ngSwitchCase="'tab5'">
+            <div class="card-body py-3">
+              <!-- begin::Table container -->
+              <div class="table-responsive" style="background:#F8F8F8;border-radius: 10px;">
+                <!-- begin::Table -->
+                <table class="table table-row-gray-300 align-middle gs-0 gy-4">
+                  <!-- begin::Table head -->
+                  <thead class="border-bottom ">
+                    <tr class="fw-bolder text-muted">
+                      <th class="min-w-150px" style="padding-left:10px ;">Description</th>
+                      <th class="min-w-140px" style="padding-right:10px ;">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr class="border-bottom">
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Order Id
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          {{companydetails?.orderId}}
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Payment Initiated At
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          {{companydetails?.paymentInitiatedAt | date}}
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Paid At
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          {{companydetails?.paidAt | date}}
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Payment Reference
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          {{companydetails?.paymentRef}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Payment Signature
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          {{companydetails?.paymentSignature}}
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Name Application Fee
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.nameApplicationFee?.amount}}
+                          {{companydetails?.nameApplicationFee?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              DSC
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.dsc?.amount}} {{companydetails?.dsc?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Pan Tan Fee
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.panTanFee?.amount}} {{companydetails?.panTanFee?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              State Fee
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.stateFee?.amount}} {{companydetails?.stateFee?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Professional Fee
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.professionalFee?.amount}} {{companydetails?.professionalFee?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              GST
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.gst?.amount}} {{companydetails?.gst?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Payment Gateway Fee
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.paymentGatewayFee?.amount}}
+                          {{companydetails?.paymentGatewayFee?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="d-flex justify-content-start flex-column">
+                            <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                              Payment Gateway Fee GST
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                          ₹ {{companydetails?.paymentGatewayFeeGst?.amount}}
+                          {{companydetails?.paymentGatewayFeeGst?.currency}}
+                        </span>
+                      </td>
+                    </tr>
+                    <!-- <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
+                            Total
+                          </a>
+                          <span class="text-muted fw-bold text-muted d-block fs-7">
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <a href="#" class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                      </a>
+                      <span class="text-dark fw-bold text-dark d-block fs-7">
+                        ₹ 
+                      </span>
+                    </td>
+                  </tr> -->
+                  </tbody>
+                  <!-- end::Table body -->
+                </table>
+                <!-- end::Table -->
+              </div>
+              <!-- end::Table container -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</app-modal>

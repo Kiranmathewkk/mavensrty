@@ -1,0 +1,59 @@
+<!-- begin::Row -->
+<!-- <div>
+  <div class="row gy-5 g-xl-8">
+    <div class="col-xxl-12">
+      <app-mixed-widget2
+        class=" mb-xl-8"
+        chartColor="danger"
+        chartHeight="200px"
+        strokeColor="#cb1e46"
+      ></app-mixed-widget2>
+    </div>
+    
+  </div>
+  
+  
+</div> -->
+
+
+<div class="card-body p-0 gy-5 g-xl-8">
+
+  <div class="card-p ">
+
+    <div class="row g-0">
+
+      <div class="col bg-light-warning px-3 py-8 rounded-2 me-7 mb-7">
+        
+          <span [inlineSVG]="'./assets/media/icons/duotune/general/gen032.svg'"
+          class="svg-icon svg-icon-3x svg-icon-warning d-block my-2"></span>
+        <a class="text-warning fw-bold fs-6"> Today Added {{tileData?.addedToday}} </a>
+        
+        
+       
+        
+      </div>
+
+      <div class="col bg-light-primary px-3 py-8 rounded-2 me-7 mb-7">
+        <span [inlineSVG]="'./assets/media/icons/duotune/finance/fin006.svg'"
+          class="svg-icon svg-icon-3x svg-icon-primary d-block my-2"></span>
+        <a  class="text-primary fw-bold fs-6"> Today Paid {{tileData?.paidToday}} </a>
+      </div>
+
+      <div class="col bg-light-warning px-3 py-8 rounded-2 me-7 mb-7">
+        <span [inlineSVG]="'./assets/media/icons/duotune/general/gen032.svg'"
+          class="svg-icon svg-icon-3x svg-icon-warning d-block my-2"></span>
+        <a  class="text-warning fw-bold fs-6"> Total Professional Fee Today ₹  </a>
+      </div>
+      <div class="col bg-light-primary px-3 py-8 rounded-2 mb-7">
+        <span [inlineSVG]="'./assets/media/icons/duotune/finance/fin006.svg'"
+          class="svg-icon svg-icon-3x svg-icon-primary d-block my-2"></span>
+        <a  class="text-primary fw-bold fs-6"> Total Incorporated Today {{tileData?.totalIncorporatedToday}} </a>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</div>

@@ -1,0 +1,315 @@
+<style>
+  drop-toggle {
+    background-color: rgba(255, 255, 255, 0.792);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 0px;
+    cursor: pointer;
+    cursor: hand;
+    border: 1px solid #ccc;
+    width: 233px;
+    text-align: left;
+  }
+
+  .drop-toggle {
+    float: right;
+  }
+
+  .drop-show {
+    padding: 4px;
+    width: 550px;
+    background-color: rgb(242, 242, 242);
+    border: 1px solid #BABABA;
+    position: absolute;
+    z-index: 100;
+    -webkit-box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+    -moz-box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .15);
+    margin-left: 2px;
+  }
+
+  .drop-show label {
+    display: block;
+    font-size: 15px;
+    /* cursor: pointer; */
+  }
+
+  .drop-show label input {
+    padding-right: 4px;
+    vertical-align: top;
+  }
+
+  .drop-show label span {
+    padding: 4px;
+    display: inline-block;
+  }
+  .selected{
+    background: black;
+  }
+</style>
+
+
+<div class="pb-3 pb-lg-5 py-3">
+
+
+  
+  <h5 class="fw-bolder d-flex align-items-center text-dark">
+    What type of company would you like to start?
+    <!-- <i class="fas fa-exclamation-circle ms-2 fs-7"
+      ngbTooltip="What type of company would you like to start?
+      One person company: This is a company where 100% shares are held by one person, without any partners. Learn more…
+      Pvt. Ltd co: This is a company with 2 or more partners, with shares being divided amongst them. Learn more…."></i> -->
+      <div class="text-gray-400 fw-bold fs-8">
+       
+        <a class="link-primary fw-bolder" (click)="load(88000004653)"> &nbsp; Info</a>
+      </div>
+    </h5>
+</div>
+
+<div class="fv-row py-3" [formGroup]="form" >
+  <div class="row">
+    <!--<div class="col-lg-4">
+      <input formControlName="type" name="type" type="radio" class="btn-check" id="pub" value="PUB_LTD" />
+      <label class="
+          btn btn-outline btn-outline-dashed btn-outline-default
+          p-2
+          d-flex
+          align-items-center
+          mb-10
+        " for="pub">
+        <span [inlineSVG]="'./assets/media/icons/duotune/communication/com005.svg'"
+          class="svg-icon svg-icon-2x me-5"></span>
+        <span class="d-block fw-bold text-start">
+          <span class="text-dark fw-bolder d-block fs-4 mb-2"> Public Limited Company</span>
+          &lt;!&ndash; <span class="text-gray-400 fw-bold fs-6">
+ 
+          </span> &ndash;&gt;
+        </span>
+      </label>
+    </div>-->
+
+    <div class="col-lg-4">
+      <input formControlName="type" name="type" type="radio" class="btn-check" id="opc" value="OPC"
+        (change)="companyType()" />
+      <label class="
+          btn btn-outline btn-outline-dashed btn-outline-default
+          p-2
+          d-flex
+          align-items-center 
+          
+        "   for="opc">
+        <span [inlineSVG]="'./assets/media/icons/duotune/communication/com005.svg'"
+          class="svg-icon svg-icon-2x me-5"></span>
+        <span class="d-block fw-bold text-start">
+          <span class="fw-bolder d-block fs-4 mb-2" [ngClass]="{'color':companyTypeSelected === 'OPC PRIVATE LIMITED' ? 'white':'red'}" > One Person Company</span>
+          <!-- <span class="text-gray-400 fw-bold fs-6">
+
+          </span> -->
+        </span>
+      </label>
+    </div>
+
+    <div class="col-lg-4">
+      <input formControlName="type" name="type" type="radio" class="btn-check" id="pvt" [(ngModel)]="companyOption"
+        value="PVT_LTD" (change)="companyType()" />
+      <label class="
+          btn btn-outline btn-outline-dashed btn-outline-default
+          p-2
+          d-flex
+          align-items-center
+          mb-10
+        " for="pvt">
+        <span [inlineSVG]="'./assets/media/icons/duotune/communication/com005.svg'"
+          class="svg-icon svg-icon-2x me-5"></span>
+        <span class="d-block fw-bold text-start">
+          <span class=" fw-bolder d-block fs-4 mb-2"> Private Limited Company </span>
+          <!-- <span class="text-gray-400 fw-bold fs-6">
+        
+          </span> -->
+        </span>
+      </label>
+    </div>
+
+    <div class="fv-plugins-message-container invalid-feedback">
+      <!-- <ErrorMessage name='type' /> -->
+    </div>
+  </div>
+
+
+  <div class="pb-3 pb-lg-5">
+
+
+  
+    <h5 class="fw-bolder d-flex align-items-center text-dark">
+      What would you like to name your company?
+      <div class="text-gray-400 fw-bold fs-8">
+       
+        <a class="link-primary fw-bolder" (click)="load(88000004654)"> &nbsp; Info</a>
+      </div>
+      
+      </h5>
+  </div>
+
+
+  <div class="row">
+    <div class="mb-2 fv-row">
+      <label class="form-label mb-3 required">Give your first preference for a name
+      
+      </label>
+      <div class="fv-row mb-7 row">
+        <div class="col-lg-7 fv-row">
+          <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Proposed Name First"
+            formControlName="proposedNameFirst" oninput="this.value = this.value.toUpperCase()"
+            (change)="setCompanyType()" [ngClass]="{
+          'is-invalid': form.controls['proposedNameFirst'].touched && form.controls['proposedNameFirst'].invalid,
+          'is-valid': form.controls['proposedNameFirst'].valid
+        }" />
+
+          <!-- <div  class="text-info">The Proposed names for a Business should not exceed 2 </div> -->
+          <div *ngIf="
+          form.get('proposedNameFirst')?.hasError('required') &&
+          form.get('proposedNameFirst')?.touched
+        " class="fv-plugins-message-container invalid-feedback">
+            Company first name required
+          </div>
+        </div>
+        <div class="col-lg-5 fv-row">
+          <label class="text-dark form-control form-control-lg form-control-solid " style="background: none; border-style: none;">{{companyTypeSelected}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-10 fv-row">
+      <label class="form-label mb-3 ">Give your second preference (optional)</label>
+
+      <div class="fv-row mb-7 row">
+        <div class="col-lg-7 fv-row">
+          <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Proposed Name Second"
+            formControlName="proposedNameSecond" oninput="this.value = this.value.toUpperCase()"
+            (change)="setCompanyType2()" />
+          <div *ngIf="
+          form.get('proposedNameSecond')?.hasError('required') &&
+          form.get('proposedNameSecond')?.touched
+        " class="fv-plugins-message-container invalid-feedback">
+            Company second name required
+          </div>
+
+
+        </div>
+        <div class="col-lg-5 fv-row">
+          <label class="text-dark form-control form-control-lg form-control-solid " style="background: none; border-style: none;">{{companyTypeSelected}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pb-3 pb-lg-5">
+
+
+  
+    <h5 class="fw-bolder d-flex align-items-center text-dark">
+      Industry and Objectives
+      
+      </h5>
+  </div>
+
+  <div class="row">
+    <div class="mb-10 fv-row">
+      <label class="form-label mb-3 required">Which industry does your proposed company belong to?
+       
+       
+          
+       
+      </label><a class="link-primary fw-bolder fs-8" (click)="load(88000004655)"> &nbsp; Info</a>
+      <!-- {{industryList | json}} -->
+      <select *ngIf="industryList.length" class="form-select form-select-solid form-select-lg" name="Industry"
+        (change)="onChangeInd($event)" formControlName="industry" autocomplete="off" [(ngModel)]="industryValue">
+        <option [value]="" disabled selected>
+          Select Industry...
+        </option>
+        <option *ngFor="let ind of industryList " [value]="ind.id">{{ind.name}}</option>
+      </select>
+      <div *ngIf="
+          form.get('industry')?.hasError('required') &&
+          form.get('industry')?.touched
+        " class="fv-plugins-message-container invalid-feedback">
+        select industry
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-10 fv-row">
+      <label class="form-label mb-3 required">What are the objectives of your company?
+        
+      </label><a class="link-primary fw-bolder fs-8" (click)="load(88000004656)"> &nbsp; Info</a>
+      <!-- <input type="text"
+        class="form-control form-control-lg form-control-solid" placeholder="Objectives" formControlName="objectives" /> -->
+
+
+      <!-- <select  multiple class="form-select form-select-solid form-select-lg " name="Objectives"
+        formControlName="objectives" autocomplete="off" [(ngModel)]="objectivesValues">
+        <option [value]="" disabled selected>
+          Select Objectives...
+        </option>
+        <option *ngFor="let ind of objectiveList " [value]="ind.text"><input type="checkbox">{{ind.text | slice:0:25}}</option>
+      </select> -->
+
+      <div>
+        <div *ngIf="objectiveList.length" class="form-control form-control-lg form-control-solid" style="height:175px;overflow-y:scroll;white-space: nowrap;background: none; border-style: none;">
+          <!-- <span *ngIf="checkedList.length>0"  >
+            <span *ngFor="let b of checkedList" style="text-align:left ;">{{b | slice:0:15 }}..... , </span></span>
+            <button class="drop-toggle btn flat" (click)="showDropDown=!showDropDown"   >  
+                  <i class="fa fa-angle-down " style="float: inherit;" ></i>
+            </button> -->
+
+          <!-- <div class="drop-show" *ngIf="showDropDown"> -->
+          
+          <div *ngFor="let a of objectiveList; let i = index" style="padding: 5px ;">
+            
+            <label>
+              <input type="checkbox" [(ngModel)]="a.checked" (change)="getSelectedValue(a.checked,a.text)"
+                [ngModelOptions]="{standalone: true}" />
+              <span  style="padding-left:10px ; ">{{a.text | slice:0:50}}....</span>
+
+              <!-- <span *ngIf="i == showIndex">{{a.text }}</span> -->
+            </label>
+            <span (click)="showMore(a.text)" style="color: #04c8c8; float: right;" > more</span>
+
+           
+            
+         
+        </div>
+
+
+          <!-- </div> -->
+        </div>
+      </div>
+
+      <!-- <div
+        *ngIf="
+          form.get('accountName')?.hasError('required') &&
+          form.get('accountName')?.touched
+        "
+        class="fv-plugins-message-container invalid-feedback"
+      >
+        Team Account name is required
+      </div> -->
+    </div>
+  </div>
+</div>
+<app-modal #modal [modalConfig]="modalConfig">
+  <!-- <div  class="px-7 py-5">
+    <div class="fs-5 text-dark fw-bolder"></div>
+  </div>
+  
+  <div  class="separator border-gray-200"></div> -->
+  
+  <div  class="px-7 py-5">
+    <div class="mb-10">
+      <label class="form-label fw-bold">{{showIndex}}</label>
+  
+    </div>
+ 
+  </div>
+</app-modal>

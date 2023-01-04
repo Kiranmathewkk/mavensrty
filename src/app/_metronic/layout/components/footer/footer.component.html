@@ -1,0 +1,43 @@
+<div [ngClass]="footerContainerCssClasses" class="d-flex flex-column flex-md-row flex-stack">
+  <!-- begin::Copyright  -->
+  <div class="text-dark flex-row order-1 order-md-1">
+    <span class="text-muted fw-bold me-2">{{ currentDateStr }} &copy;</span>
+    <span><a class="text-gray-800 text-hover-primary cursor-pointer" href="https://mavenstry.com">Mavenstry Private
+        Limited </a></span>
+    <span>
+      <marquee class="text-gray-800 text-hover-primary cursor-pointer" style="width: 65%;">Support Email : <a
+        href="mailto:incorpd@mavenstry.com">incorpd@mavenstry.com </a> Support Phone : <a href="tel:+918078975000">
+        +91 80789 75000</a></marquee>
+    </span>
+  </div>
+  <!-- end::Copyright  -->
+
+  <!-- begin::Nav  -->
+  <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
+    <li class="menu-item">
+      
+        <!-- <a type="text" class="btn btn-icon btn-bg-light  btn-active-light-primary " style="padding-bottom: 6px;"
+        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+          Info
+    </a>
+      <app-dropdown-menu1 message="hello world"></app-dropdown-menu1>  
+      <a class="menu-link ps-0 pe-2 cursor-pointer" > 
+      </a> -->
+      <a type="text" class="btn btn-icon btn-bg-light   " style="padding-bottom: 7px;"
+      data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+      <a class="menu-link ps-0 pe-2 cursor-pointer" style="font-weight: 600;" >Info</a>
+        
+  </a>
+    <app-dropdown-menu1 message="hello world"></app-dropdown-menu1>  
+    <a class="menu-link ps-0 pe-2 cursor-pointer" > 
+    </a>
+    </li>
+    <li class="menu-item">
+      <a class="menu-link ps-0 pe-2 cursor-pointer" href="{{env.landingUrl}}about" target="_blank"> About </a>
+    </li>
+    <li class="menu-item">
+      <a class="menu-link pe-0 pe-2 cursor-pointer" href="{{env.landingUrl}}contact" target="_blank"> Contact </a>
+    </li>
+  </ul>
+  <!-- end::Nav  -->
+</div>

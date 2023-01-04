@@ -1,0 +1,683 @@
+<style>
+  .disabled {
+    cursor: none;
+    opacity: .5;
+    pointer-events: none;
+  }
+</style>
+<div class="row fv-row mb-7">
+  <div class="col-lg-10 fv-row">
+    <div class="mb-5  p-5 rounded" style="background: #fefaf4;border-style: solid;border-color: #ffab48;border-width: 1px;">
+      <div class="text-dark mb-2 fw-bold "><i class="fas fa-exclamation-circle ms-2 fs-7 p-2"
+          style="color:#ffab48 ;"></i>Note</div>
+      <div style="padding-left: 10px;">
+        <li class="text-dark"> There can be only <strong>1</strong> share holder in a OPC.
+        </li>
+        <!-- <div  class="text-info" > Total Shareholding has to be <strong> 100%.  </strong></div> -->
+        <li class="text-dark"> There can be a minimum of <strong>2</strong>
+          shareholders up to a maximum of <strong>200</strong> shareholders in a Private Limited Company. </li>
+        <li class="text-dark" *ngIf="formData.type === 'PUB_LTD'"> There should be <strong>7</strong> or more share
+          holders
+          in a Public Limited Company </li>
+        <li class="text-dark"> There should be a minimum of <strong>2</strong>
+          Directors up to a maximum of <strong>15</strong> Directors in a Private Limited Company. </li>
+        <li class="text-dark"> Total share must be <strong>100</strong>
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mb-5 bg-light-info p-8 rounded" *ngIf="errorList.length">
+  <div class="text-danger" *ngFor="let error of errorList">{{error}}</div>
+</div>
+<div class="pb-10 pb-lg-1">
+  <!-- <h2 class="fw-bolder text-dark">Add Partner</h2> -->
+  <!-- <div class="text-gray-400 fw-bold fs-6">
+    You can add multiple partners now -->
+  <div class="row fv-row mb-7">
+    <div class="col-lg-6 fv-row">
+      <div class="form-control form-control-lg form-control-solid" style="background: none; border-style: none;">
+        <!-- How many people are starting this company? -->
+        <h2 class="fw-bolder text-dark">Stakeholders
+
+
+          <a class="link-primary fw-bolder fs-8" (click)="load(88000004657)"> &nbsp; Info</a>
+        </h2>
+      </div>
+    </div>
+    <div class="col-lg-2 fv-row">
+      <!-- <input type="number" [disabled]=" formJson.disableStakeCount " class="form-control"
+        [(ngModel)]="stakeHolderCount"> -->
+    </div>
+    <div class="col-lg-4 fv-row">
+      <!-- <a (click)="onAddForm()" class="link-primary fw-bolder "> Click here to add</a> -->
+      <!-- <button style="float: right;" [ngClass]="{'disabled':stakeHolderCount<1}" [disabled]="partnersList.length == stakeHolderCount"
+        class="btn btn-primary" (click)="onAddForm()">Add Stake Holder</button> -->
+      <button style="float: right;" class="btn btn-primary" (click)="onAddForm()"
+        [disabled]="partnersList.length==1 && formData.type=='OPC'">Add Stake Holder</button>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+
+<!-- <div class="d-flex align-items-center mb-7" *ngFor="let partner of partnersList; let i = index">
+    
+    <div class="symbol symbol-50px me-5">
+      <img src="./assets/media/avatars/300-{{i+1}}.jpg" class="" alt="" />
+    </div>  
+    
+    <div class="flex-grow-1">
+      <span class="text-dark fw-bolder text-hover-primary fs-6">
+        {{partner.firstName.name}} {{partner.lastName.name}}
+      </span>
+      <span class="text-muted d-block fw-bold">{{partner.role}}</span>
+      <span class="text-muted d-block fw-bold">{{partner.share}} %</span>
+      <span class="text-muted d-block fw-bold">{{partner.email.email}}</span>
+      <span class="text-muted d-block fw-bold">{{partner.mobile.number}}</span>
+    </div>
+    <div class="flex-grow-1">
+      <span class="text-dark fw-bolder text-hover-primary fs-6">
+        <a (click)="editPartner(partner,i)" title="Edit" class="
+                  btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                  me-1
+                ">
+          <span [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'" class="svg-icon svg-icon-3"></span>
+        </a>
+      </span>
+    </div>
+    
+  </div> -->
+
+<div class="table-responsive">
+  <table class="table table-row-dashed table-row-dark  align-middle gs-0 gy-4">
+    <!-- begin::Table head -->
+    <thead>
+      <tr class="fw-bolder text-dark" style="background:#F5F6FE ;">
+        <th style="padding-left: 20px;">Name</th>
+        <th class="min-w-120px text-start">Role</th>
+        <th class="min-w-100px text-start">Share</th>
+        <th class="min-w-120px text-start">Email</th>
+        <th class="min-w-120px text-start">Phone Number</th>
+        <th class="min-w-100px text-end" style="padding-right: 20px;">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let partner of partnersList; let i = index">
+        <td style="padding-left: 20px;">
+          <div class="d-flex align-items-center">
+
+            <div class="d-flex justify-content-start flex-row">
+
+              <span class="   d-block fs-7">
+                {{partner.firstName.name}} {{partner.lastName.name}}
+              </span>
+
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+
+            <div class="d-flex justify-content-start flex-row">
+
+              <span class="   d-block fs-7">
+                {{partner.role}}
+              </span>
+
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+
+            <div class="d-flex justify-content-start flex-row">
+
+              <span class="   d-block fs-7">
+                {{partner.share}} %
+              </span>
+
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+
+            <div class="d-flex justify-content-start flex-row">
+
+              <span class="  d-block fs-7">
+                {{partner.email.email}}
+              </span>
+
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+
+            <div class="d-flex justify-content-start flex-row">
+
+              <span class="   d-block fs-7">
+                {{partner.mobile.number}}
+              </span>
+
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="d-flex justify-content-end flex-shrink-0">
+
+            <a (click)="editPartner(partner,i)" title="Edit" class="
+                btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                me-1
+              ">
+              <span [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'" class="svg-icon svg-icon-3"></span>
+            </a>
+            <!-- <a 
+              
+              class="
+                btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+              "
+            >
+              <span
+                [inlineSVG]="
+                  './assets/media/icons/duotune/general/gen027.svg'
+                "
+                class="svg-icon svg-icon-3"
+              ></span>
+            </a> -->
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div class="text-center " *ngIf="partnersList.length == 0">Click <h6>' Add Stake Holder '</h6> to start adding</div>
+
+
+
+
+<app-modal #modal [modalConfig]="modalConfig" style="width: 230vh;">
+  <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_login_signup_form"
+    [formGroup]="form" (ngSubmit)="submit()">
+    <!--begin::Form group-->
+
+    <!-- Role & share -->
+    <label class="form-label fw-bolder text-dark fs-3">Role & Share</label>
+    <div class="fv-row mb-7 row">
+
+      <div class="col-lg-4 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Role</label>
+        <select class="form-select form-select-solid form-select-lg" name="role" formControlName="role"
+          [attr.disabled]="formJson.disableRole" (change)="selectedRole()" autocomplete="off">
+          <option value disabled selected>
+            Select A Role...
+          </option>
+          <option value="MANAGING_DIRECTOR">
+            DIRECTOR
+          </option>
+          <option value="SHARE_HOLDER">
+            SHAREHOLDER
+          </option>
+          <option value="DIRECTOR_AND_SHARE_HOLDER">
+            DIRECTOR AND SHAREHOLDER
+          </option>
+        </select>
+
+      </div>
+
+      <div class="col-lg-2 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Share %</label>
+        <input class="form-control form-control-lg form-control-solid" type="number" min="1" max="100"
+          [attr.disabled]="formJson.disableShare" placeholder="Shares" name="share" formControlName="share"
+          autocomplete="off" [ngClass]="{
+        'is-invalid': form.controls['share'].touched && form.controls['share'].invalid,
+        'is-valid': form.controls['share'].valid
+      }" />
+        <div *ngIf="form.controls['share'].value &&
+          form.controls['share'].value > 100
+         
+        " class="fv-plugins-message-container invalid-feedback">
+          Share not greater than 100
+        </div>
+
+        <div *ngIf=" form.controls['share'].value &&
+          form.controls['share'].value  < 1
+        " class="fv-plugins-message-container invalid-feedback">
+          Share not les than 1
+        </div>
+
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Share is required',
+        control: form.controls['share']
+      }"></ng-container>
+
+      </div>
+
+      <div class="col-lg-4 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">DIN</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" min="1" max="100" placeholder="DIN"
+          name="din" formControlName="din" autocomplete="off" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'DIN is required',
+          control: form.controls['din']
+        }"></ng-container>
+      </div>
+
+    </div>
+
+    <label class="form-label fw-bolder text-dark fs-3">Identity Information</label>
+    <div class="fv-row mb-7 row">
+
+      <div class="col-lg-4 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Aadhaar</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Aadhaar" name="aadhaar"
+          formControlName="aadhaar" autocomplete="off" [ngClass]="{
+          'is-invalid': form.controls['aadhaar'].touched && form.controls['aadhaar'].invalid,
+          'is-valid': form.controls['aadhaar'].valid
+        }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Aadhaar is required',
+        control: form.controls['aadhaar']
+      }"></ng-container>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Enter valid Aadhar',
+        control: form.controls['aadhaar']
+      }"></ng-container>
+
+      </div>
+      <div class="col-lg-4 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">PAN</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="PAN" name="pan"
+          formControlName="pan" autocomplete="off" oninput="this.value = this.value.toUpperCase()" [ngClass]="{
+        'is-invalid': form.controls['pan'].touched && form.controls['pan'].invalid,
+        'is-valid': form.controls['pan'].valid
+      }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'PAN is required',
+        control: form.controls['pan']
+      }"></ng-container>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Enter valid PAN',
+        control: form.controls['pan']
+      }"></ng-container>
+      </div>
+
+    </div>
+
+    <label class="form-label fw-bolder text-dark fs-3">Personal Details</label>
+    <div class="fv-row mb-7 row">
+
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">First Name</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" name="firstName"
+          oninput="this.value = this.value.toUpperCase()" formControlName="firstName" placeholder="First Name"
+          autocomplete="off" [ngClass]="{
+          'is-invalid': form.controls['firstName'].touched && form.controls['firstName'].invalid,
+          'is-valid': form.controls['firstName'].valid
+        }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'First name is required',
+          control: form.controls['firstName']
+        }"></ng-container>
+      </div>
+
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Middle Name</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" name="middleName"
+          oninput="this.value = this.value.toUpperCase()" formControlName="middleName" placeholder="Middle Name"
+          autocomplete="off" />
+      </div>
+
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Last Name</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+          oninput="this.value = this.value.toUpperCase()" formControlName="lastName" placeholder="Last Name"
+          autocomplete="off" [ngClass]="{
+          'is-invalid': form.controls['lastName'].touched && form.controls['lastName'].invalid,
+          'is-valid': form.controls['lastName'].valid
+        }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Last name is required',
+          control: form.controls['lastName']
+        }"></ng-container>
+
+      </div>
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Fathers Name</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Fathers Name"
+          oninput="this.value = this.value.toUpperCase()" name="fathersName" formControlName="fatherName"
+          autocomplete="off" [ngClass]="{
+        'is-invalid': form.controls['fatherName'].touched && form.controls['fatherName'].invalid,
+        'is-valid': form.controls['fatherName'].valid
+      }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Fathers Name is required',
+        control: form.controls['fatherName']
+      }"></ng-container>
+
+      </div>
+    </div>
+
+    <div class="row fv-row mb-7">
+
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Gender</label>
+        <select class="form-select form-select-solid form-select-lg" name="gender" formControlName="gender"
+          autocomplete="off">
+          <option value disabled selected>
+            Select gender...
+          </option>
+          <option value="MALE">
+            MALE
+          </option>
+          <option value="FEMALE">
+            FEMALE
+          </option>
+          <option value="TRANSGENDER">
+            TRANSGENDER
+          </option>
+        </select>
+
+      </div>
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Date of Birth</label>
+        <input #licenseExpiration="ngbDatepicker" [minDate]="{year: 1940, month:1, day: 1}" [maxDate]="maxdate"
+          class="form-control form-control-lg form-control-solid" formControlName="dob" [readonly]="true" ngbDatepicker
+          (click)="licenseExpiration.toggle()" />
+      </div>
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Place of Birth</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" min="1" max="100"
+          oninput="this.value = this.value.toUpperCase()" placeholder="Place of birth" name="placeOfBirth"
+          formControlName="placeOfBirth" autocomplete="off" [ngClass]="{
+      'is-invalid': form.controls['placeOfBirth'].touched && form.controls['placeOfBirth'].invalid,
+      'is-valid': form.controls['placeOfBirth'].valid
+       }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Place of birth is required',
+        control: form.controls['placeOfBirth']
+      }"></ng-container>
+      </div>
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Nationality</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" min="1" max="100"
+          placeholder="Nationality" name="nationality" formControlName="nationality" autocomplete="off" readonly
+          [ngClass]="{
+        'is-invalid': form.controls['nationality'].touched && form.controls['nationality'].invalid,
+        'is-valid': form.controls['nationality'].valid
+         }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Nationality is required',
+          control: form.controls['nationality']
+        }"></ng-container>
+      </div>
+
+    </div>
+    <!--end::Form group-->
+    <label class="form-label fw-bolder text-dark fs-3">Educational & Occupation</label>
+    <div class="fv-row mb-7 row">
+      <div class="col-lg-4 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Educational Qualification</label>
+        <select class="form-select form-select-solid form-select-lg" name="educationalQualification"
+          formControlName="educationalQualification" autocomplete="off">
+          <option value disabled selected>
+            Select Qualification ...
+          </option>
+          <option value="X/SSLC/Junior/Equivalent">
+            X/SSLC/JUNIOR/EQUIVALENT
+          </option>
+          <option value="XXI,SSC/High/Equivalent">
+            XXI,SSC/HIGH/EQUIVALENT
+          </option>
+          <option value="Graduation/Bachelor/Equivalent">
+            GRADUATION/BACHELOR/EQUIVALENT
+          </option>
+          <option value="Post Graduate/Master/Equivalent">
+            POST GRADUATE/MASTER/EQUIVALENT
+          </option>
+          <option value="Professional">
+            PROFESSIONAL
+          </option>
+          <option value="Executive Program">
+            EXECUTIVE PROGRAM
+          </option>
+          <option value="Doctorate">
+            DOCTORATE
+          </option>
+          <option value="Diploma">
+            DIPLOMA
+          </option>
+          <option value="Others">
+            OTHERS
+          </option>
+        </select>
+      </div>
+
+      <div class="col-lg-4 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Occupation</label>
+        <select class="form-select form-select-solid form-select-lg" name="occupation" formControlName="occupation"
+          autocomplete="off">
+          <option value disabled selected>
+            Select Qualification ...
+          </option>
+          <option value="Self Employed">
+            SELF EMPLOYED
+          </option>
+          <option value="Professional">
+            PROFESSIONAL
+          </option>
+          <option value="Home Maker">
+            HOME MAKER
+          </option>
+          <option value="Student">
+            STUDENT
+          </option>
+          <option value="Servicemen">
+            SERVICEMEN
+          </option>
+
+        </select>
+      </div>
+
+
+
+
+    </div>
+
+    <label class="form-label fw-bolder text-dark fs-3">Contact Details</label>
+    <div class="fv-row mb-7 row">
+      <div class="col-lg-5 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Line 1</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" name="address_line1"
+          oninput="this.value = this.value.toUpperCase()" formControlName="address_line1" placeholder="Line 1"
+          autocomplete="off" [ngClass]="{
+            'is-invalid': form.controls['address_line1'].touched && form.controls['address_line1'].invalid,
+            'is-valid': form.controls['address_line1'].valid
+          }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: ' Line 1 is required',
+            control: form.controls['address_line1']
+          }"></ng-container>
+      </div>
+
+      <div class="col-lg-5 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Line 2</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" name="address_line2"
+          oninput="this.value = this.value.toUpperCase()" formControlName="address_line2" placeholder=" Line 2 "
+          autocomplete="off" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: ' Line 2 is required',
+            control: form.controls['address_line2']
+          }"></ng-container>
+      </div>
+
+
+      <div class="col-lg-2 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">State </label>
+        <!-- <input
+          class="form-control form-control-lg form-control-solid"
+          type="text"
+          name="address_state"
+          formControlName="address_state"
+          placeholder="State"
+          autocomplete="off"
+          [ngClass]="{
+            'is-invalid': form.controls['address_state'].touched && form.controls['address_state'].invalid,
+            'is-valid': form.controls['address_state'].valid
+          }"
+        /> -->
+        <select *ngIf="stateList.length" class="form-select form-select-solid form-select-lg" name="address_state"
+          formControlName="address_state" autocomplete="off">
+          <option [value]="">
+            Select State...
+          </option>
+          <option *ngFor="let state of stateList " [value]="state">{{state}}</option>
+        </select>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'State is required',
+            control: form.controls['address_state']
+          }"></ng-container>
+
+      </div>
+
+
+
+
+    </div>
+
+    <div class="fv-row mb-7 row">
+
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Country</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" name="address_country"
+          formControlName="address_country" placeholder="India" autocomplete="off" readonly [ngClass]="{
+        'is-invalid': form.controls['address_country'].touched && form.controls['address_country'].invalid,
+        'is-valid': form.controls['address_country'].valid
+      }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'First name is required',
+        control: form.controls['address_country']
+      }"></ng-container>
+      </div>
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Pincode</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" name="address_pin"
+          formControlName="address_pin" placeholder="Pincode" autocomplete="off" [ngClass]="{
+        'is-invalid': form.controls['address_pin'].touched && form.controls['address_pin'].invalid,
+        'is-valid': form.controls['address_pin'].valid
+      }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Pincode is required',
+        control: form.controls['address_pin']
+      }"></ng-container>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Enter valid pincode',
+        control: form.controls['address_pin']
+      }"></ng-container>
+      </div>
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Email</label>
+        <input class="form-control form-control-lg form-control-solid" type="email" placeholder="Email" name="email"
+          formControlName="email" autocomplete="off" [ngClass]="{
+        'is-invalid': form.controls['email'].touched && form.controls['email'].invalid,
+        'is-valid': form.controls['email'].valid
+      }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Email is required',
+        control: form.controls['email']
+      }"></ng-container>
+        <!-- <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'email',
+        message: 'Email is invalid',
+        control: form.controls['email']
+      }"></ng-container> -->
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Email is invalid',
+        control: form.controls['email']
+      }"></ng-container>
+      </div>
+
+      <div class="col-lg-3 fv-row">
+        <label class="form-label fw-bolder text-muted fs-6">Mobile</label>
+        <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Mobile" name="mobile"
+          formControlName="mobile" autocomplete="off" [ngClass]="{
+        'is-invalid': form.controls['mobile'].touched && form.controls['mobile'].invalid,
+        'is-valid': form.controls['mobile'].valid
+      }" />
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Mobile is required',
+        control: form.controls['mobile']
+      }"></ng-container>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Required valid Number',
+        control: form.controls['mobile']
+      }"></ng-container>
+
+      </div>
+
+
+
+
+
+
+
+
+    </div>
+
+    <!--begin::Form group-->
+
+    <!--end::Form group-->
+
+
+    <div class="card-footer modal-footer d-flex justify-content-end py-6 px-9">
+      <button type="button" class="btn btn-primary" (click)="saveSettings()" [disabled]="!form.valid">
+        <ng-container>Save Changes </ng-container>
+
+      </button>
+      <button type="button" class="btn  btn-outline-secondary" (click)="onCancel()">
+        <ng-container>Cancel </ng-container>
+
+      </button>
+    </div>
+
+  </form>
+
+</app-modal>
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control &&control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

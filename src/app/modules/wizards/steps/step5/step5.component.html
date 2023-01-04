@@ -1,0 +1,265 @@
+<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
+
+<div class="card-body py-3">
+  <h2 class="fw-bolder text-dark">Payment
+    <a class="link-primary fw-bolder fs-8" (click)="load(88000004664)"> &nbsp; Info</a>
+  </h2>
+  <!-- <div class="text-gray-400 fw-bold fs-6">
+    If you need more info, please check out
+    <a href="#" class="link-primary fw-bolder"> Help Page</a>.
+  </div> -->
+</div>
+<div class="card-body py-3">
+  <div class="table-responsive">
+    <table class="table table-row-dashed table-row-dark  align-middle gs-0 gy-4">
+      <!-- begin::Table head -->
+      <thead>
+        <tr class="fw-bolder text-dark" style="background:#F5F6FE ;">
+          <th style="padding-left: 20px;">Name</th>
+          <th class="min-w-120px text-start">Role</th>
+          <th class="min-w-100px text-start">Share</th>
+          <th class="min-w-120px text-start">Email</th>
+          <th class="min-w-120px text-start">Phone Number</th>
+          <!-- <th class="min-w-100px text-end" style="padding-right: 20px;">Action</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let partner of partnerList; let i = index">
+          <td style="padding-left: 20px;">
+            <div class="d-flex align-items-center">
+
+              <div class="d-flex justify-content-start flex-row">
+
+                <span class="   d-block fs-7">
+                  {{partner.firstName.name}} {{partner.lastName.name}}
+                </span>
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+
+              <div class="d-flex justify-content-start flex-row">
+
+                <span class="   d-block fs-7">
+                  {{partner.role}}
+                </span>
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+
+              <div class="d-flex justify-content-start flex-row">
+
+                <span class="   d-block fs-7">
+                  {{partner.share}} %
+                </span>
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+
+              <div class="d-flex justify-content-start flex-row">
+
+                <span class="  d-block fs-7">
+                  {{partner.email.email}}
+                </span>
+
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center">
+
+              <div class="d-flex justify-content-start flex-row">
+
+                <span class="   d-block fs-7">
+                  {{partner.mobile.number}}
+                </span>
+
+              </div>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<div class="card-body py-3">
+  <!-- begin::Table container -->
+  <div class="table-responsive" style="background:#F8F8F8;border-radius: 10px;">
+    <!-- begin::Table -->
+    <table class="table  table-row-gray-300 align-middle gs-0 gy-4">
+      <!-- begin::Table head -->
+      <thead class="border-bottom ">
+        <tr class="fw-bolder text-muted">
+          <th class="min-w-150px" style="padding-left:10px ;">Description</th>
+          <th class="min-w-140px text-end" style="padding-right:10px ;">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  Name Application Fee
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.nameApplicationFee.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  DSC
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.dsc.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  Pan Tan Fee
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.panTanFee.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  State Fee
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.stateFee.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  Professional Fee
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.professionalFee.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  GST
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.gst.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  Payment Gateway Fee
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.paymentGatewayFee.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                  Payment Gateway Fee GST
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-muted fw-bold text-muted d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.paymentGatewayFeeGst.amount}}
+            </span>
+          </td>
+        </tr>
+        <tr class="border-bottom">
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="d-flex justify-content-start flex-column">
+                <a href="#" class="text-dark fw-bolder text-hover-primary fs-6" style="padding-left:10px ;">
+                  Total
+                </a>
+                <span class="text-muted fw-bold text-muted d-block fs-7">
+                </span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <a href="#" class="text-dark fw-bolder text-hover-primary d-block fs-6">
+            </a>
+            <span class="text-dark fw-bold text-dark d-block fs-7 text-end" style="padding-right:10px ;">
+              ₹ {{paymentSummary?.total.amount}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+      <!-- end::Table body -->
+    </table>
+    <!-- end::Table -->
+  </div>
+  <!-- end::Table container -->
+</div>
+<!-- begin::Body -->
+<!-- <button type="button" class="btn btn-lg btn-primary me-3 wizard-success " style="float: right;" (click)="payPayment()"> Pay </button> -->

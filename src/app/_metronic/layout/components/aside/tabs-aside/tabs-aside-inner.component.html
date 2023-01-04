@@ -1,0 +1,161 @@
+<!--begin::Wrapper-->
+<div class="flex-column-fluid hover-scroll-y" data-kt-scroll="true" data-kt-scroll-activate="true"
+  data-kt-scroll-height="auto" data-kt-scroll-wrappers="#kt_aside_wordspace"
+  data-kt-scroll-dependencies="#kt_aside_secondary_footer" data-kt-scroll-offset="0px">
+  <div class="tab-content">
+
+    <app-menu-tab class="tab-pane fade" id="kt_aside_nav_tab_menu" role="tabpanel"
+      [ngClass]="{'active show': activeTab.link === 'menu'}"></app-menu-tab>
+
+    <app-notifications-tab class="tab-pane fade  active show" id="kt_aside_nav_tab_notifications" role="tabpanel"
+      [ngClass]="{'active show': activeTab.link === 'notifications'}">
+    </app-notifications-tab>
+
+    
+  </div>
+
+  
+</div>
+
+<!-- <div class="aside-menu flex-column-fluid ps-5 pe-3 mb-9" id="kt_aside_menu">
+  <div #ktAsideScroll id="kt_aside_menu_wrapper" class="w-100 hover-scroll-overlay-y d-flex pe-2" data-kt-scroll="true"
+    data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside_wordspace"
+    data-kt-scroll-offset="0">
+    <div class="tab-content">
+
+      <app-menu-tab class="tab-pane fade" id="kt_aside_nav_tab_menu" role="tabpanel"
+        [ngClass]="{'active show': activeTab.link === 'menu'}"></app-menu-tab>
+  
+      <app-notifications-tab class="tab-pane fade  active show" id="kt_aside_nav_tab_notifications" role="tabpanel"
+        [ngClass]="{'active show': activeTab.link === 'notifications'}">
+      </app-notifications-tab>
+  
+   
+    </div>
+  </div>
+</div> -->
+<!--end::Wrapper-->
+
+<!--begin::Footer-->
+
+<div class="flex-column-auto  px-5"  *ngIf="currentUserRole == 'PLATFORM_ADMIN' || currentUserRole == 'BACKEND_ADMIN'" style="padding-bottom: 50px;" id="kt_aside_secondary_footer">
+  <!--begin::User panel-->
+  <div class="d-flex flex-stack">
+    <!--begin::Wrapper-->
+    <div class="d-flex align-items-center">
+      <!--begin::Avatar-->
+      <div class="symbol symbol-circle symbol-40px" style="height: 40px;
+      width: 40px;
+      background-color: rgb(69, 53, 118);
+      border-radius: 50%;
+      text-align: center;
+      display: inline-block;
+      padding-top: 10px;
+      color: #ffffff;
+      font-weight: 900;">
+        <!-- <img src="./assets/media/avatars/300-1.jpg" alt="photo"> -->
+        {{loginedUser?.firstName.name[0]}}{{loginedUser?.lastName.name[0]}}
+      </div>
+      <!--end::Avatar-->
+      <!--begin::User info-->
+      <div class="ms-2">
+        <!--begin::Name-->
+        <div class="text-gray-800 text-hover-primary fs-6 fw-bolder lh-1">{{loginedUser?.firstName.name}}&nbsp;{{loginedUser?.lastName.name}}</div>
+        <!--end::Name-->
+        <!--begin::Major-->
+        <span class="text-muted fw-bold d-block fs-7 lh-1">{{currentUserRole}}</span>
+        <!--end::Major-->
+      </div>
+      <!--end::User info-->
+    </div>
+    <!--end::Wrapper-->
+
+    <!--begin::User menu-->
+    <div class="ms-1">
+      <!-- begin::Toggle -->
+      <div
+        class="btn btn-sm btn-icon btn-active-color-primary position-relative me-n2"
+        data-kt-menu-trigger="click"
+        data-kt-menu-attach="parent"
+        data-kt-menu-placement="bottom-end"
+        data-kt-menu-flip="bottom"
+      >
+        <img src="./assets/media/icons/duotune/coding/cod001.svg" alt="metronic" />
+      </div>
+      <!-- end::Toggle  -->
+      <app-user-inner></app-user-inner>
+
+    </div>
+    <!--end::User menu-->
+  </div>
+  <!--end::User panel-->
+</div>
+
+<div class="flex-column-auto  px-5"  *ngIf="currentUserRole == 'ENTREPRENEUR'" style="padding-bottom: 50px;" id="kt_aside_secondary_footer">
+  <!--begin::User panel-->
+  <div class="d-flex flex-stack">
+    <!--begin::Wrapper-->
+    <div class="d-flex align-items-center">
+      <!--begin::Avatar-->
+      <div class="symbol symbol-circle symbol-40px" style="height: 40px;
+      width: 40px;
+      background-color: rgb(69, 53, 118);
+      border-radius: 50%;
+      text-align: center;
+      display: inline-block;
+      padding-top: 10px;
+      color: #ffffff;
+      font-weight: 900;">
+        <!-- <img src="./assets/media/avatars/300-1.jpg" alt="photo"> -->
+        {{nameLetter.first[0]}}{{nameLetter.second[0]}}
+      </div>
+      <!--end::Avatar-->
+      <!--begin::User info-->
+      <div class="ms-2">
+        <!--begin::Name-->
+        <div class="text-gray-800 fs-6 fw-bolder lh-1">{{loginedUser?.fullName.name}}</div>
+        <!--end::Name-->
+        <!--begin::Major-->
+        <span class="text-muted fw-bold d-block fs-7 lh-1">{{currentUserRole}}</span>
+        <!--end::Major-->
+      </div>
+      <!--end::User info-->
+    </div>
+    <!--end::Wrapper-->
+
+    <!--begin::User menu-->
+    <div class="ms-1">
+      <!-- begin::Toggle -->
+      <div
+        class="btn btn-sm btn-icon btn-active-color-primary position-relative me-n2"
+        data-kt-menu-trigger="click"
+        data-kt-menu-attach="parent"
+        data-kt-menu-placement="bottom-end"
+        data-kt-menu-flip="bottom"
+      >
+        <img src="./assets/media/icons/duotune/coding/cod001.svg" alt="metronic" />
+      </div>
+      <!-- end::Toggle  -->
+      <app-user-inner></app-user-inner>
+
+    </div>
+    <!--end::User menu-->
+  </div>
+  <!--end::User panel-->
+</div>
+
+
+<div class="flex-column-auto pt-10 px-5" *ngIf = "false"  id="kt_aside_secondary_footer">
+  <a target="_blank" class="btn btn-bg-light btn-color-gray-600 btn-flex btn-active-color-primary flex-center w-100"
+    title="Docs & Components">
+    <span class="btn-label">
+      Docs & Components
+    </span>
+    <span [inlineSVG]="'./assets/media/icons/duotune/general/gen005.svg'"
+      class="svg-icon btn-icon svg-icon-4 ms-2"></span>
+  </a>
+</div>
+
+
+
+<!--end::Footer-->

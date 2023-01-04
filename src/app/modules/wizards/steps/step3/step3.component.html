@@ -1,0 +1,287 @@
+<div class="pb-10 pb-lg-15">
+  <h2 class="fw-bolder text-dark">Please provide the contact information for your new company.</h2>
+  <div class="text-gray-400 fw-bold fs-6">
+    If you need more info, please check out
+    <a href="#" class="link-primary fw-bolder"> Help Page</a>.
+  </div>
+</div>
+
+<form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_login_signup_form"
+  [formGroup]="form" (ngSubmit)="submit()">
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-7 row">
+    <div class="col-lg-4 fv-row">
+      <label class="form-label fw-bolder text-dark fs-6">Registered Email
+        <a class="link-primary fw-bolder fs-8" (click)="load(88000004659)"> &nbsp; Info</a>
+      </label>
+      <input class="form-control form-control-lg form-control-solid" type="email" placeholder="Registered Email"
+        name="email" formControlName="registeredEmail" autocomplete="off" [ngClass]="{
+        'is-invalid': form.controls['registeredEmail'].touched && form.controls['registeredEmail'].invalid,
+        'is-valid': form.controls['registeredEmail'].valid
+      }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Email is required',
+        control: form.controls['registeredEmail']
+      }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'email',
+        message: 'Email is invalid',
+        control: form.controls['registeredEmail']
+      }"></ng-container>
+    </div>
+
+    <div class="col-lg-4 fv-row">
+      <label class="form-label fw-bolder text-dark fs-6">Registered Mobile
+        <a class="link-primary fw-bolder fs-8" (click)="load(88000004660)"> &nbsp; Info</a>
+      </label>
+      <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Registered Mobile"
+        name="mobile" formControlName="registeredMobile" autocomplete="off" [ngClass]="{
+        'is-invalid': form.controls['registeredMobile'].touched && form.controls['registeredMobile'].invalid,
+        'is-valid': form.controls['registeredMobile'].valid
+      }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Mobile is required',
+        control: form.controls['registeredMobile']
+      }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Enter valid number',
+        control: form.controls['registeredMobile']
+      }"></ng-container>
+
+    </div>
+
+
+
+  </div>
+  <!--end::Form group-->
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-7 row ">
+    <label class="form-label fw-bolder text-dark fs-6">Registered Address
+      <a class="link-primary fw-bolder fs-8" (click)="load(88000004658)"> &nbsp; Info</a>
+    </label>
+    <div class="row pt-7 pb-7">
+
+      <div class="row mb-7">
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Line 1</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="reg_address_line1" oninput="this.value = this.value.toUpperCase()"
+            formControlName="reg_address_line1" placeholder="Line 1" autocomplete="off" [ngClass]="{
+                  'is-invalid': form.controls['reg_address_line1'].touched && form.controls['reg_address_line1'].invalid,
+                  'is-valid': form.controls['reg_address_line1'].valid
+                }" />
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: ' Line 1 is required',
+                  control: form.controls['reg_address_line1']
+                }"></ng-container>
+        </div>
+
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Line 2</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="reg_address_line2" oninput="this.value = this.value.toUpperCase()"
+            formControlName="reg_address_line2" placeholder=" Line 2 " autocomplete="off" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: ' Line 1 is required',
+              control: form.controls['reg_address_line2']
+            }"></ng-container>
+        </div>
+
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">State </label>
+          <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="reg_address_state"
+            formControlName="reg_address_state" placeholder="State" autocomplete="off" [ngClass]="{
+                  'is-invalid': form.controls['reg_address_state'].touched && form.controls['reg_address_state'].invalid,
+                  'is-valid': form.controls['reg_address_state'].valid
+                }" /> -->
+          <select class="form-select form-select-solid form-select-lg" name="address_state"
+            formControlName="reg_address_state" autocomplete="off">
+            <option [value]="">
+              Select State...
+            </option>
+            <option *ngFor="let state of stateList " [value]="state">{{state}}</option>
+          </select>
+
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'State is required',
+                  control: form.controls['reg_address_state']
+                }"></ng-container>
+
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Country</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="reg_address_country"
+            formControlName="reg_address_country" placeholder="Country" autocomplete="off" readonly  [ngClass]="{
+              'is-invalid': form.controls['reg_address_country'].touched && form.controls['reg_address_country'].invalid,
+              'is-valid': form.controls['reg_address_country'].valid
+            }" />
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'First name is required',
+              control: form.controls['reg_address_country']
+            }"></ng-container>
+        </div>
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Pincode</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="reg_address_pin"
+            formControlName="reg_address_pin" placeholder="Pincode" autocomplete="off" [ngClass]="{
+              'is-invalid': form.controls['reg_address_pin'].touched && form.controls['reg_address_pin'].invalid,
+              'is-valid': form.controls['reg_address_pin'].valid
+            }" />
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Pincode is required',
+              control: form.controls['reg_address_pin']
+            }"></ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'pattern',
+              message: 'Enter valid pin',
+              control: form.controls['reg_address_pin']
+            }"></ng-container>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+  <!--end::Form group-->
+
+
+  <!--begin::Form group-->
+  <div class="fv-row mb-7 row ">
+    <div class="row pt-7 pb-7">
+      <div class="col-lg-6 fv-row">
+      <label class="form-label fw-bolder text-dark fs-6">Communication Address
+        <a class="link-primary fw-bolder fs-8" (click)="load(88000004661)"> &nbsp; Info</a>  
+      </label>
+    </div>
+    <div class="col-lg-6 fv-row">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="checkSelected($event)">
+        <label class="form-check-label" for="flexCheckDefault">
+         Use Registered Address
+        </label>
+      </div>
+    </div>
+
+    </div>
+    
+
+    
+    <div class="row pt-7 pb-7">
+
+      <div class="row mb-7">
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Line 1</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="comm_address_line1" oninput="this.value = this.value.toUpperCase()"
+            formControlName="comm_address_line1" placeholder="Line 1" autocomplete="off" [ngClass]="{
+                  'is-invalid': form.controls['comm_address_line1'].touched && form.controls['comm_address_line1'].invalid,
+                  'is-valid': form.controls['comm_address_line1'].valid
+                }" />
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: ' Line 1 is required',
+                  control: form.controls['comm_address_line1']
+                }"></ng-container>
+        </div>
+
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Line 2</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="comm_address_line2" oninput="this.value = this.value.toUpperCase()"
+            formControlName="comm_address_line2" placeholder=" Line 2 " autocomplete="off" />
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: ' Line 1 is required',
+              control: form.controls['comm_address_line2']
+            }"></ng-container>
+        </div>
+
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">State </label>
+          <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="comm_address_state"
+            formControlName="comm_address_state" placeholder="State" autocomplete="off" [ngClass]="{
+                  'is-invalid': form.controls['comm_address_state'].touched && form.controls['comm_address_state'].invalid,
+                  'is-valid': form.controls['comm_address_state'].valid
+                }" /> -->
+          <select class="form-select form-select-solid form-select-lg" name="address_state"
+            formControlName="comm_address_state" autocomplete="off">
+            <option [value]="">
+              Select State...
+            </option>
+            <option *ngFor="let state of stateList " [value]="state">{{state}}</option>
+          </select>
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+                  validation: 'required',
+                  message: 'State is required',
+                  control: form.controls['comm_address_state']
+                }"></ng-container>
+
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Country</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="comm_address_country"
+            formControlName="comm_address_country" placeholder="Country" autocomplete="off" readonly [ngClass]="{
+              'is-invalid': form.controls['comm_address_country'].touched && form.controls['comm_address_country'].invalid,
+              'is-valid': form.controls['comm_address_country'].valid
+            }" />
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'First name is required',
+              control: form.controls['comm_address_country']
+            }"></ng-container>
+        </div>
+        <div class="col-lg-4 fv-row">
+          <label class="form-label fw-bolder text-dark fs-6">Pincode</label>
+          <input class="form-control form-control-lg form-control-solid" type="text" name="comm_address_pin"
+            formControlName="comm_address_pin" placeholder="Pincode" autocomplete="off" [ngClass]="{
+              'is-invalid': form.controls['comm_address_pin'].touched && form.controls['comm_address_pin'].invalid,
+              'is-valid': form.controls['comm_address_pin'].valid
+            }" />
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Pincode is required',
+              control: form.controls['comm_address_pin']
+            }"></ng-container>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'pattern',
+              message: 'Pincode is not valid',
+              control: form.controls['comm_address_pin']
+            }"></ng-container>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+  <!--end::Form group-->
+
+
+
+
+</form>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control &&control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

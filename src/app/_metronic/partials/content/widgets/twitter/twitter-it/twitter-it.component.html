@@ -1,0 +1,19 @@
+<!-- begin::Header -->
+
+<div class="card-header border-0 pt-5">
+  <h3 class="card-title align-items-start flex-column">
+    <span class="card-label fw-bolder fs-3 mb-1">Income Tax Twitter Updates</span>
+  </h3>
+</div>
+<!-- end::Header -->
+<!-- begin::Body -->
+<div class="card-body py-3">
+  <!-- <a class="twitter-timeline" data-height="500" href="https://twitter.com/incometaxindia?ref_src=twsrc%5Etfw"></a> -->
+  <ngx-twitter-timeline 
+    [data]="{sourceType: 'url', url: 'https://twitter.com/incometaxindia'}"
+    [opts]="{tweetLimit: 5}"
+    [opts] = "{ height: 500}"
+    
+></ngx-twitter-timeline>
+</div>
+<!-- begin::Body -->

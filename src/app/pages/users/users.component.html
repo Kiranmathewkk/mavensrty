@@ -1,0 +1,331 @@
+<!-- <div class="card card-xl-stretch mb-xl-8"> -->
+
+  <!-- begin::Header -->
+  <div class="mb-xl-8 ms-2 " style="display: flex;
+  justify-content: space-between;
+  align-items: stretch;">
+  
+    <h3 class=" fw-bolder text-dark">Users</h3>
+    <button type="button" class="btn  btn-primary " style="float: right;" (click)="onAddUser()">
+      Add User
+    </button>
+  
+  
+  
+  
+  </div>
+
+
+  <!-- <div class="card-header border-0">
+    <h3 class="card-title fw-bolder text-dark">Users</h3>
+    <div class="card-toolbar">
+      
+      <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
+        <span [inlineSVG]="'./assets/media/icons/duotune/general/gen024.svg'" class="svg-icon svg-icon-2"></span>
+      </button>
+      <app-dropdown-menu1></app-dropdown-menu1>
+     
+      <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
+        (click)="onAddUser()">
+        <span [inlineSVG]="'./assets/media/icons/duotune/general/gen035.svg'" class="svg-icon svg-icon-2"> Add
+          User</span>
+      </button>
+     
+    </div>
+  </div> -->
+  <!-- end::Header -->
+  <!-- begin::Body -->
+  
+  <!-- end::Body -->
+
+<!-- </div> -->
+
+<div class="card card-xl-stretch mb-xl-8">
+  <div class="card-body pt-3">
+
+    <div class="d-flex align-items-center mb-7" *ngFor="let user of usersList; let i = index">
+
+      <div class="symbol symbol-50px me-5">
+        <img src="./assets/media/avatars/300-{{i+1}}.jpg" class="" alt="" />
+      </div>
+
+      <div class="flex-grow-1">
+        <a  class="text-dark fw-bolder text-hover-primary fs-6">
+          {{user.firstName.name}} {{user.lastName.name}}
+        </a>
+        <span class="text-muted d-block fw-bold">{{user.email.email}}</span>
+        <span class="text-muted d-block fw-bold">{{user.mobile.number}}</span>
+      </div>
+
+    </div>
+
+    <div *ngIf="!usersList.length">
+       <h3 class="card-title fw-bolder text-dark ">No User found </h3>
+    </div>
+
+
+  </div>
+</div>
+
+
+<!-- Add User÷÷ -->
+
+<app-modal #modal [modalConfig]="modalConfig">
+    <div class=" mb-5 mb-xl-10">
+        <div id="kt_account_profile_details" class="collapse show">
+          <form novalidate="" class="form" [formGroup]="userForm">
+            <div class="card-body  p-9">
+              <div class="row mb-6">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                  >Full Name</label
+                >
+                <div class="col-lg-8">
+                  <div class="row">
+                    <div class="col-lg-6 fv-row">
+                      <input
+                        type="text"
+                        class="
+                          form-control form-control-lg form-control-solid
+                          mb-3 mb-lg-0
+                        "
+                        placeholder="First name"
+                        name="fName"
+                        formControlName="firstName"
+                        [ngClass]="{
+                          'is-invalid': userForm.controls['firstName'].invalid,
+                          'is-valid': userForm.controls['firstName'].valid
+                        }"
+                      />
+                      <ng-container
+                      [ngTemplateOutlet]="formError"
+                      [ngTemplateOutletContext]="{
+                        validation: 'required',
+                        message: 'First name is required',
+                        control: userForm.controls['firstName']
+                      }"
+                    ></ng-container>
+                    </div>
+                    <div class="col-lg-6 fv-row">
+                      <input
+                        type="text"
+                        class="form-control form-control-lg form-control-solid"
+                        placeholder="Last name"
+                        name="lName"
+                        formControlName="lastName"
+                        [ngClass]="{
+                          'is-invalid': userForm.controls['lastName'].invalid,
+                          'is-valid': userForm.controls['lastName'].valid
+                        }"
+                      />
+              
+                    <ng-container
+                    [ngTemplateOutlet]="formError"
+                    [ngTemplateOutletContext]="{
+                      validation: 'required',
+                      message: 'Last name is required',
+                      control: userForm.controls['lastName']
+                    }"
+                  ></ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-6">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                  >Email</label
+                >
+                <div class="col-lg-8 fv-row">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Email address"
+                    name="email"
+                    formControlName="email"
+                    [ngClass]="{
+                      'is-invalid': userForm.controls['email'].invalid,
+                      'is-valid': userForm.controls['email'].valid
+                    }"
+                  />
+                  <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Email is required',
+                    control: userForm.controls['email']
+                  }"
+                ></ng-container>
+                <ng-container
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                  validation: 'pattern',
+                  message: 'Email is invalid',
+                  control: userForm.controls['email']
+                }"
+              ></ng-container>
+                </div>
+              </div>
+              <div class="row mb-6">
+                <label class="col-lg-4 col-form-label fw-bold fs-6"
+                  ><span class="required">Contact number</span></label
+                >
+                <div class="col-lg-8 fv-row">
+                  <input
+                    type="tel"
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Phone number"
+                    name="contactPhone"
+                    formControlName="mobile"
+                    [ngClass]="{
+                      'is-invalid': userForm.controls['mobile'].invalid,
+                      'is-valid': userForm.controls['mobile'].valid
+                    }"
+                  />
+                  <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Contact number is required',
+                    control: userForm.controls['mobile']
+                  }"
+                ></ng-container>
+                <ng-container
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                  validation: 'pattern',
+                  message: 'Enter valid number',
+                  control: userForm.controls['mobile']
+                }"
+              ></ng-container>
+                <ng-container
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'Contact number should be minimum 10 digits',
+                  control: userForm.controls['mobile']
+                }"
+              ></ng-container>
+                </div>
+              </div>
+              <div class="row mb-6">
+                <label class="col-lg-4 col-form-label required fw-bold fs-6"
+                  >Authority</label
+                >
+                <div class="col-lg-8 fv-row">
+                  <select class="form-select form-select-solid form-select-lg" name="authority" formControlName="authority"
+                    autocomplete="off">
+                    <option value disabled selected>
+                      Select Authority...
+                    </option>
+                    <option value="BACKEND_ADMIN">
+                      Backend Admin
+                    </option>
+                    <option value="BACKEND_USER">
+                      Backend User
+                    </option>
+                    
+                   </select>
+                  <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Authority is required',
+                    control: userForm.controls['authority']
+                  }"
+                ></ng-container>
+                
+                </div>
+              </div>
+              <div class="row mb-6">
+                <label class="col-lg-4 col-form-label fw-bold fs-6"
+                  ><span class="required">Password </span></label
+                >
+                <div class="col-lg-8 fv-row">
+                  <input
+                    type="text"
+                    class="form-control form-control-lg form-control-solid"
+                    placeholder="Password"
+                    name="password"
+                    formControlName="password"
+                    [ngClass]="{
+                      'is-invalid': userForm.controls['password'].invalid,
+                      'is-valid': userForm.controls['password'].valid
+                    }"
+                  />
+                  <ng-container
+                  [ngTemplateOutlet]="formError"
+                  [ngTemplateOutletContext]="{
+                    validation: 'required',
+                    message: 'Password is required',
+                    control: userForm.controls['password']
+                  }"
+                ></ng-container>
+                <ng-container
+                [ngTemplateOutlet]="formError"
+                [ngTemplateOutletContext]="{
+                  validation: 'minlength',
+                  message: 'Passsword should be minimum 8 digits',
+                  control: userForm.controls['password']
+                }"
+              ></ng-container>
+                </div>
+              </div>
+          
+            </div>
+            <div class="card-footer modal-footer d-flex justify-content-end py-6 px-9">
+              <button
+                type="button"
+                class="btn btn-primary"
+                [disabled]="isLoading"
+                (click)="saveSettings()"
+                [disabled]="
+                userForm.invalid 
+              "
+              >
+                <ng-container *ngIf="!isLoading">Save Changes</ng-container>
+                <ng-container *ngIf="isLoading">
+                  <span clas="indicator-progress" [style.display]="'block'">
+                    Please wait...{{ " " }}
+                    <span
+                      class="spinner-border spinner-border-sm align-middle ms-2"
+                    ></span>
+                  </span>
+                </ng-container>
+              </button>
+              <button
+              type="button"
+              class="btn  btn-outline-secondary"
+              (click)="onCancel()"
+            >
+              <ng-container >Cancel </ng-container>
+             
+            </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </app-modal> 
+    
+
+
+
+
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+
+
+
+
+

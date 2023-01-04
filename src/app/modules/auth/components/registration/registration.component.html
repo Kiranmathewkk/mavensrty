@@ -1,0 +1,179 @@
+<a routerLink="/" class="mb-12"><img alt="Logo" src="./assets/media/logos/incorplogo.png" class="h-45px"/></a>
+
+<form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" id="kt_login_signup_form" [formGroup]="registrationForm" (ngSubmit)="submit()">
+  <!--begin::Heading-->
+  <div class="mb-10 text-start pt-5">
+    <h1 class="text-dark mb-3">Create an Account</h1>
+    <!-- <div class="text-gray-400 fw-bold fs-4"> Already have an account? <a routerLink="/auth/login" class="link-primary fw-bolder" [style.margin-left]="'5px'">Sign in?</a>
+    </div> -->
+  </div>
+  <!--end::Heading-->
+  <!-- begin::Alert error-->
+  <ng-container *ngIf="hasError">
+    <div class="mb-lg-15 alert alert-danger">
+      <div class="alert-text font-weight-bold"> The registration details are incorrect </div>
+    </div>
+  </ng-container>
+  <!-- end::Alert error-->
+  <!--begin::Form group-->
+  <div class="row fv-row mb-7">
+        <div class="col-lg-12">
+      <label class="form-label fw-bolder text-dark fs-6">Full Name</label>
+      <input class="form-control form-control-lg form-control-solid" type="text" name="fullName" formControlName="fullName" placeholder="Full Name" autocomplete="off" [ngClass]="{
+          'is-invalid': registrationForm.controls['fullName'].touched && registrationForm.controls['fullName'].invalid,
+          'is-valid': registrationForm.controls['fullName'].valid
+        }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Full name is required',
+          control: registrationForm.controls['fullName']
+        }"></ng-container>
+    </div>
+  
+  </div>
+  <!--end::Form group-->
+  <!--begin::Form group-->
+  <div class="fv-row mb-7 row">
+        <div class="col-lg-12">
+      <label class="form-label fw-bolder text-dark fs-6">Email</label>
+      <input class="form-control form-control-lg form-control-solid" type="email" placeholder="Email" name="email" formControlName="email" autocomplete="off" [ngClass]="{
+        'is-invalid': registrationForm.controls['email'].touched && registrationForm.controls['email'].invalid,
+        'is-valid': registrationForm.controls['email'].valid
+      }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Email is required',
+        control: registrationForm.controls['email']
+      }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Email is invalid',
+        control: registrationForm.controls['email']
+      }"></ng-container>
+    </div>
+    </div>  <div class="fv-row mb-7 row">
+        <div class="col-lg-12">
+      <label class="form-label fw-bolder text-dark fs-6">Mobile</label>
+      <input class="form-control form-control-lg form-control-solid" type="text" placeholder="Mobile" name="mobile" formControlName="mobile" autocomplete="off" [ngClass]="{
+        'is-invalid': registrationForm.controls['mobile'].touched && registrationForm.controls['mobile'].invalid,
+        'is-valid': registrationForm.controls['mobile'].valid
+      }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'required',
+        message: 'Mobile is required',
+        control: registrationForm.controls['mobile']
+      }"></ng-container>
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+        validation: 'pattern',
+        message: 'Not a valid number',
+        control: registrationForm.controls['mobile']
+      }"></ng-container>
+    </div>
+
+  </div>
+  <!--end::Form group-->
+
+
+  <!--begin::Form group-->
+  <div class="mb-10 row fv-row">
+    <div class="col-lg-12">
+      <label class="form-label fw-bolder text-dark fs-6">Password</label>
+      <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Password" name="password" formControlName="password" autocomplete="off" [ngClass]="{
+          'is-invalid': registrationForm.controls['password'].touched && registrationForm.controls['password'].invalid,
+          'is-valid': registrationForm.controls['password'].valid
+        }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Password is required',
+          control: registrationForm.controls['password']
+        }"></ng-container>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'pattern',
+          message: 'Passsword must contain 1 Uppercase, 1 Lowercase and 1 Special character, 1 number and Minimun character 8 ,',
+          control: registrationForm.controls['password']
+        }"></ng-container>
+
+    </div>
+    </div>
+    <div class="mb-10 row fv-row">
+    <div class="col-lg-12">
+      <label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
+      <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Confirm password" name="cPassword" autocomplete="off" formControlName="cPassword" [ngClass]="{
+          'is-invalid': registrationForm.controls['cPassword'].touched && registrationForm.controls['cPassword'].invalid,
+          'is-valid': registrationForm.controls['cPassword'].valid
+        }" />
+      <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Confirm Password is required',
+          control: registrationForm.controls['cPassword']
+        }"></ng-container>
+      <ng-container *ngIf="
+          registrationForm.controls['cPassword'].errors &&
+          registrationForm.controls['cPassword'].errors.ConfirmPassword
+        ">
+        <div class="fv-plugins-message-container">
+          <div class="fv-help-block"> 'Passsword' and 'Confirm Password' didn't match. </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <!--end::Form group-->
+  <!--begin::Form group-->
+  <!--end::Form group-->
+  <!--begin::Form group-->
+  <div class="mb-10 row fv-row">
+    <label class="form-label fw-bolder text-dark fs-6">Terms & Conditions</label>
+  <div class="termsx">
+    <p>Unlike Privacy Policies, which are required by laws such as the GDPR, CalOPPA and many others, there's no law or regulation on Terms and Conditions.
+
+      However, having a Terms and Conditions gives you the right to terminate the access of abusive users or to terminate the access to users who do not follow your rules and guidelines, as well as other desirable business benefits.
+      
+      It's extremely important to have this agreement if you operate a SaaS app.
+      
+      Here are a few examples of how this agreement can help you:
+      
+      If users abuse your website or mobile app in any way, you can terminate their account. Your "Termination" clause can inform users that their accounts would be terminated if they abuse your service.
+      If users can post content on your website or mobile app (create content and share it on your platform), you can remove any content they created if it infringes copyright. Your Terms and Conditions will inform users that they can only create and/or share content they own rights to. Similarly, if users can register for an account and choose a username, you can inform users that they are not allowed to choose usernames that may infringe trademarks, i.e. usernames like Google, Facebook, and so on.
+      If you sell products or services, you could cancel specific orders if a product price is incorrect. Your Terms and Conditions can include a clause to inform users that certain orders, at your sole discretion, can be canceled if the products ordered have incorrect prices due to various errors.
+      And many more examples.
+      In summary, while you do not legally need a Terms and Conditions agreement, there are many many reasons for you to have one. Not only will it make your business look more professional and trustworthy, but you'll also be maintaining more control over how your users are able to interact with your platforms and content.</p>
+
+      <!-- <input type="checkbox"><label>  <h6>&nbsp;&nbsp;Agree terms and condition</h6> </label> -->
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (change)="agreeTerms($event)">
+        <label class="form-check-label" for="flexCheckDefault"><h6>Agree terms and condition</h6>
+          
+        </label>
+      </div>
+     
+  </div>
+</div>
+  <div class="text-center">
+    <button type="submit" id="kt_sign_up_submit" [disabled]="
+        registrationForm.invalid || !isAgree
+      " class="btn btn-lg btn-primary w-100 mb-5">
+      <ng-container *ngIf="(isLoading$ | async) === false">
+        <span class="indicator-label">Sign Up</span>
+      </ng-container>
+      <ng-container *ngIf="isLoading$ | async">
+        <span class="indicator-progress" [style.display]="'block'"> Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </ng-container>
+    </button>
+    <!-- <a routerLink="/auth/login" type="button" id="kt_login_signup_form_cancel_button" class="btn btn-lg btn-light-primary w-100 mb-5"> Cancel </a> -->
+  </div>
+  <div class="text-dark fw-bold fs-6 text-center"> Already have an account? <a routerLink="/auth/login" class="link-primary fw-bolder" [style.margin-left]="'5px'">Sign in?</a>
+  </div>
+  <!--end::Form group-->
+</form>
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control &&control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="fv-plugins-message-container">
+      <div class="fv-help-block">
+        <span role="alert">
+          {{ message }}
+        </span>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

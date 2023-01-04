@@ -1,0 +1,24 @@
+:host {
+  width: 100%;
+  @media (min-width: 992px) {
+    .login-form {
+      width: 100%;
+      max-width: 450px;
+
+      .mat-form-field {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.termsx {
+  overflow-y: scroll;
+  height: 200px;
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 8px;
+  background: #F5F8FA;
+  
+
+}

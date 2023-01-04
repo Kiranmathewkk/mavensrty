@@ -1,0 +1,2419 @@
+<style>
+  .data-selected {
+    background-color: #e9eaea;
+  }
+  .myOwnBg {
+    background-color: #F5F8FA;
+  }
+</style>
+
+
+<div class="card card-xl-stretch mb-xl-8">
+
+  <div class="card-header border-0">
+
+
+    <div class="card-body btn-toolbar">
+
+      <button class="btn btn-bg-light btn-primary" (click)="isShow=!isShow">
+        <i class="bi bi-search"></i><i>Toggle</i>
+      </button>
+
+
+      <button type="button" title="Name Applied" [disabled]="disableButton?.nameApplied" style="margin-left: 5px;"
+        [ngClass]="disableButton?.nameApplied ? 'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'"
+        (click)="sendActions(1)">
+        <i class="bi bi-clipboard"></i><i>Applied</i>
+      </button>
+
+      <button type="button" title="Name Approved" [disabled]="disableButton?.nameApproved" style="margin-left: 5px;"
+        (click)="sendActions(2)"
+        [ngClass]="disableButton?.nameApproved ?  'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'">
+        <i class="bi bi-clipboard-check"></i><i>Approved</i>
+      </button>
+
+      <button type="button" title="Name Rejected" [disabled]="disableButton?.nameRejected" style="margin-left: 5px;"
+        (click)="sendActions(3)"
+        [ngClass]="disableButton?.nameRejected ? 'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'">
+        <i class="bi bi-clipboard-x"></i><i>Rejected</i>
+      </button>
+
+      <button type="button" title="Name Resubmitted" [disabled]="disableButton?.nameResubmitted"
+        style="margin-left: 5px;" (click)="sendActions(4)"
+        [ngClass]="disableButton?.nameResubmitted ? 'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'">
+        <i class="bi bi-clipboard-heart"></i><i>Resubmitted</i>
+      </button>
+
+      <!--<button type="button" title="Resubmited Name Aprove " [disabled]="!disableButton?.resubmited"
+        style="margin-right: 5px;" (click)="sendActions(5)"
+        [ngClass]="!disableButton?.resubmited ?  'btn btn-sm btn-icon btn-secondary btn-active-light-primary' : 'btn btn-sm btn-icon btn-color-primary btn-active-light-primary'">
+        <i class="bi bi-receipt"></i>
+      </button>
+
+      <button type="button" title="Resubmited Name Reject " [disabled]="!disableButton?.resubmited"
+        style="margin-right: 5px;" (click)="sendActions(6)"
+        [ngClass]="!disableButton?.resubmited ?  'btn btn-sm btn-icon btn-secondary btn-active-light-primary' : 'btn btn-sm btn-icon btn-color-primary btn-active-light-primary'">
+        <i class="bi bi-receipt"></i>
+      </button>-->
+
+      <button type="button" title="Spice Applied" [disabled]="disableButton?.spiceApplied" style="margin-left: 5px;"
+        (click)="sendActions(7)"
+        [ngClass]="disableButton?.spiceApplied ? 'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'">
+        <i class="bi bi-journal"></i><i>Applied</i>
+      </button>
+
+      <button type="button" title="Spice Approved" [disabled]="disableButton?.spiceApproved" style="margin-left: 5px;"
+        (click)="sendActions(8)"
+        [ngClass]="disableButton?.spiceApproved ? 'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'">
+        <i class="bi bi-journal-check"></i><i>Approved</i>
+      </button>
+
+      <button type="button" title="Spice Rejected" [disabled]="disableButton?.spiceRejected" style="margin-left: 5px;"
+        (click)="sendActions(9)"
+        [ngClass]="disableButton?.spiceRejected ? 'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'">
+        <i class="bi bi-journal-x"></i><i>Rejected</i>
+      </button>
+
+      <button type="button" title="Spice Resubmitted" [disabled]="disableButton?.spiceResubmitted"
+        style="margin-left: 5px;" (click)="sendActions(10)"
+        [ngClass]="disableButton?.spiceResubmitted ? 'btn btn-bg-light btn-active-light-primary' : 'btn btn-bg-light btn-primary'">
+        <i class="bi bi-journals"></i><i>Resubmitted</i>
+      </button>
+
+      <!--<button type="button" title="Spice Resubmited Aprove" [disabled]="!disableButton?.spiceresubmit"
+        style="margin-right: 5px;" (click)="sendActions(11)"
+        [ngClass]="!disableButton?.spiceresubmit ?  'btn btn-sm btn-icon btn-secondary btn-active-light-primary' : 'btn btn-sm btn-icon btn-color-primary btn-active-light-primary'">
+        <i class="bi bi-filter-square"></i>
+      </button>
+
+      <button type="button" title="Spice Resubmited Reject" [disabled]="!disableButton?.spiceresubmit"
+        style="margin-right: 5px;" (click)="sendActions(12)"
+        [ngClass]="!disableButton?.spiceresubmit ?  'btn btn-sm btn-icon btn-secondary btn-active-light-primary' : 'btn btn-sm btn-icon btn-color-primary btn-active-light-primary'">
+        <i class="bi bi-filter-square"></i>
+      </button>-->
+
+    </div>
+
+
+
+    <div class="card-toolbar" *ngIf="isShow">
+
+
+
+      <div class="row fv-row " style="padding-left: 25px;padding-right: 25px; padding-top: 10px;padding-bottom: 10px;">
+        <div class="col-lg-3 fv-row">
+          <input class="form-control form-control-lg form-control-solid" type="text" name="firstName"
+            placeholder="Proposed Name First" [(ngModel)]="searchOn.proposedfirst" />
+
+        </div>
+
+        <div class="col-lg-3 fv-row">
+          <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+            placeholder="Proposed Name Second" [(ngModel)]="searchOn.proposedsecond" />
+
+
+        </div>
+        <div class="col-lg-3 fv-row">
+          <input class="form-control form-control-lg form-control-solid" type="text" name="lastName" placeholder="CIN"
+            [(ngModel)]="searchOn.cin" />
+
+        </div>
+
+        <div class="col-lg-3 fv-row">
+          <input class="form-control form-control-lg form-control-solid" type="text" name="lastName" placeholder="PAN"
+            [(ngModel)]="searchOn.pan" />
+
+        </div>
+
+      </div>
+      <div class="row fv-row " style="padding-left: 25px;padding-right: 25px; ">
+        <div class="col-lg-3 fv-row">
+
+          <input class="form-control form-control-lg form-control-solid" type="text" name="firstName" placeholder="TAN"
+            [(ngModel)]="searchOn.tan" />
+
+        </div>
+
+        <div class="col-lg-3 fv-row">
+
+          <input class="form-control form-control-lg form-control-solid" type="text" name="lastName" placeholder="GST"
+            [(ngModel)]="searchOn.gst" />
+
+
+        </div>
+        <div class="col-lg-3 fv-row">
+
+          <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+            placeholder="Aproved Name" [(ngModel)]="searchOn.aprovedname" />
+
+        </div>
+
+        <div class="col-lg-3 fv-row">
+
+          <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+            placeholder="Registered Email" [(ngModel)]="searchOn.email" />
+
+        </div>
+
+      </div>
+      <div class="row fv-row " style="padding-left: 25px;padding-right: 25px; padding-top: 10px; padding-bottom: 25px;">
+        <div class="col-lg-3 fv-row">
+
+          <input class="form-control form-control-lg form-control-solid" type="text" name="firstName"
+            placeholder="Registered Mobile" [(ngModel)]="searchOn.mobile" />
+
+        </div>
+
+        <div class="col-lg-3 fv-row">
+
+
+
+          <select class="form-select form-select-solid form-select-lg" name="company-status"
+            [(ngModel)]="searchOn.status" aria-placeholder="Company Type" autocomplete="off">
+            <option value="1" disabled selected>
+              Select Status Type...
+            </option>
+            <option value="ADDED">
+              ADDED
+            </option>
+            <option value="DOCUMENTS_PARTIALLY_UPLOADED">
+              DOCUMENTS_PARTIALLY_UPLOADED
+            </option>
+            <option value="DOCUMENTS_UPLOADED">
+              DOCUMENTS_UPLOADED
+            </option>
+            <option value="PAYMENT_INITIATED">
+              PAYMENT_INITIATED
+            </option>
+            <option value="PAID">
+              PAID
+            </option>
+            <option value="NAME_APPLIED">
+              NAME_APPLIED
+            </option>
+            <option value="NAME_REJECTED">
+              NAME_REJECTED
+            </option>
+            <option value="NAME_RESUBMITTED">
+              NAME_RESUBMITTED
+            </option>
+            <option value="NAME_APPROVED">
+              NAME_APPROVED
+            </option>
+            <option value="SPICE_APPLIED">
+              SPICE_APPLIED
+            </option>
+            <option value="SPICE_REJECTED">
+              SPICE_REJECTED
+            </option>
+            <option value="SPICE_RESUBMITTED">
+              SPICE_RESUBMITTED
+            </option>
+            <option value="SPICE_APPROVED">
+              SPICE_APPROVED
+            </option>
+            <option value="INCORPORATED">
+              INCORPORATED
+            </option>
+
+          </select>
+
+          <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="lastName" placeholder="Status"
+        [(ngModel)] = "searchOn.status"
+            /> -->
+
+
+        </div>
+        <div class="col-lg-3 fv-row">
+
+          <select class="form-select form-select-solid form-select-lg custom-select selectpicker" name="company-type"
+            [(ngModel)]="searchOn.type" title="Company Type" autocomplete="off">
+            <option value="1" disabled selected>
+              Select Company Type...
+            </option>
+
+            <option value="PVT_LTD">
+              Private Limited
+            </option>
+            <option value="OPC">
+              OPC
+            </option>
+
+          </select>
+          <!-- <input class="form-control form-control-lg form-control-solid" type="text" name="lastName" placeholder="Type"
+        [(ngModel)] = "searchOn.type"
+            /> -->
+
+        </div>
+
+        <div class="col-lg-1 fv-row">
+
+          <button type="button" class="btn btn-primary" (click)="searchCompany()">
+            <ng-container>Search</ng-container>
+
+          </button>
+
+        </div>
+        <div style="padding-left:40px ;" class="col-lg-1 fv-row">
+
+          <button type="button" class="btn btn-primary" (click)="clearCompany()">
+            <ng-container>Clear</ng-container>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<div class="card card-xl-stretch mb-xl-8">
+
+
+
+
+  <!-- <div class="card-body pt-2">
+    
+    <div class="d-flex align-items-center mb-7" *ngFor="let company of companiesList; let i = index">
+      
+      <div class="symbol symbol-50px me-5">
+        <img src="./assets/media/avatars/300-{{i+1}}.jpg" class="" alt="" />
+      </div>
+     
+      <div class="flex-grow-1">
+        <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
+  {{company.proposedNameFirst?  company.proposedNameFirst[0] : ''}}  
+        </a>
+      </div>
+      
+    </div>
+    
+  
+  </div> -->
+
+
+</div>
+
+<!-- serach company -->
+
+
+
+
+<!-- Add User÷÷ -->
+
+
+<div class="card card-xl-stretch mb-xl-8">
+
+
+
+  <div class="card-body py-3 mt-4" *ngIf="companiesList?.length">
+    <!-- begin::Table container -->
+    <div class="table-responsive">
+      <!-- begin::Table -->
+      <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+        <!-- begin::Table head -->
+        <thead>
+          <tr class="fw-bolder text-muted">
+            <!-- <th class="w-25px">
+              <div
+                class="
+                  form-check form-check-sm form-check-custom form-check-solid
+                "
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value="1"
+                  data-kt-check="true"
+                  data-kt-check-target=".widget-9-check"
+                />
+              </div>
+            </th> -->
+            <th class="min-w-120px">Proposed Names</th>
+            <th class="min-w-120px">Approved Name</th>
+            <th class="min-w-120px">Type</th>
+            <th class="min-w-120px">Progress</th>
+            <th class="min-w-120px">Status</th>
+            <th class="min-w-120px">Actions</th>
+          </tr>
+        </thead>
+        <!-- end::Table head -->
+        <!-- begin::Table body -->
+        <tbody>
+          <tr
+            *ngFor="let company of companiesList | paginate: { id: 'server', itemsPerPage: 10, currentPage: page+1, totalItems: count } ; let i = index"
+            (click)="selectedCompany(company)" [ngClass]="{'data-selected':company.id == selectedId }">
+            <!-- <td>
+              <div
+                class="
+                  form-check form-check-sm form-check-custom form-check-solid
+                "
+              >
+                <input
+                  class="form-check-input widget-9-check"
+                  type="checkbox"
+                  value="1"
+                />
+              </div>
+            </td> -->
+            <td>
+              <!-- <a
+                href="#"
+                class="text-dark fw-bolder text-hover-primary d-block fs-6"
+              >
+                Intertico
+              </a> -->
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company?.proposedNameFirst}}
+              </span>
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company.proposedNameSecond}}
+              </span>
+            </td>
+            <td>
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company?.approvedName}}
+              </span>
+            </td>
+            <td>
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company?.type}}
+              </span>
+            </td>
+            <td class="text-end">
+              <div class="d-flex flex-column w-100 me-2">
+                <div class="d-flex flex-stack mb-2">
+                  <span class="text-muted me-2 fs-7 fw-bold">{{company.progress}}</span>
+                </div>
+                <div class="progress h-6px w-100">
+                  <div class="progress-bar bg-primary" role="progressbar" [style.width]="company.progress"></div>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <!-- <a
+                href="#"
+                class="text-dark fw-bolder text-hover-primary d-block fs-6"
+              >
+                Intertico
+              </a> -->
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+                {{company?.status}}
+              </span>
+              <span class="text-muted fw-bold text-muted d-block fs-7">
+
+              </span>
+            </td>
+            <td>
+              <div class="d-flex flex-shrink-0">
+                <a class="
+                    btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                    me-1
+                  " (click)="companyDetails(company)" title="Company Details">
+                  <i class="bi bi-window-stack"></i>
+                </a>
+                <a class="
+                    btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                    me-1
+                  " title="Call Initiat" (click)="callInit(company.id)">
+                  <i class="bi bi-telephone"></i>
+                </a>
+                <a class="
+                    btn btn-icon btn-bg-light btn-active-color-primary btn-sm
+                  " title="Trademark Check" (click)="tradeMarkCheck(company.id)">
+                  <i class="bi bi-terminal"></i>
+                </a>
+              </div>
+
+            </td>
+
+
+          </tr>
+
+
+
+        </tbody>
+        <!-- end::Table body -->
+      </table>
+      <!-- end::Table -->
+    </div>
+
+    <div style="float: right;">
+
+      <!-- <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" >
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav> -->
+
+      <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)" id="server">
+      </pagination-controls>
+
+    </div>
+
+
+
+
+
+    <!-- end::Table container -->
+  </div>
+  <!-- begin::Body -->
+</div>
+
+
+
+<!-- aprove reject -->
+<app-modal #modal [modalConfig]="modalConfig">
+  <div class=" mb-5 mb-xl-10 ">
+    <div *ngIf="actionsIconOrder == 1">
+      <h2>hii</h2>
+    </div>
+  </div>
+
+</app-modal>
+
+<app-modal #modal2 [modalConfig]="modalConfig">
+  <div class=" mb-5 mb-xl-10 ">
+    <div id="kt_account_profile_details" class="collapse show  ">
+      <div style="float: left;">
+        <button type="button" class="btn btn-primary "> Aprove
+
+
+        </button>
+      </div>
+      <div style="float: right;">
+
+
+        <button type="button" class="btn btn-danger "> Reject
+
+
+        </button>
+      </div>
+
+
+
+    </div>
+  </div>
+
+</app-modal>
+
+<app-modal #modal3 [modalConfig]="modalConfig">
+  <div class=" mb-5 mb-xl-10 ">
+    <div id="kt_account_profile_details" class="collapse show  ">
+      <div style="float: left;">
+        <button type="button" class="btn btn-primary "> Aprove
+
+
+        </button>
+      </div>
+      <div style="float: right;">
+
+
+        <button type="button" class="btn btn-danger "> Reject
+
+
+        </button>
+      </div>
+
+
+
+    </div>
+  </div>
+
+</app-modal>
+<app-modal #modal4 [modalConfig]="modalConfig">
+  <div class=" mb-5 mb-xl-10 ">
+    <div id="kt_account_profile_details" class="collapse show  ">
+      <div style="float: left;">
+        <button type="button" class="btn btn-primary "> Aprove
+
+
+        </button>
+      </div>
+      <div style="float: right;">
+
+
+        <button type="button" class="btn btn-danger "> Reject
+
+
+        </button>
+      </div>
+
+
+
+    </div>
+  </div>
+
+</app-modal>
+
+
+<app-modal #modal6 [modalConfig]="modalConfig">
+  <div class=" mb-5 mb-xl-10 ">
+    <div id="kt_account_profile_details" class="collapse show  ">
+      <!-- <span class="text-dark fw-bolder d-block fs-4 mb-2"> Are you sure? </span>
+
+      <div style="float: left;">
+        <button type="button" class="btn btn-primary " (click)="iconActon()"> Yes
+
+
+        </button>
+      </div>
+      <div style="float: right;">
+
+
+        <button type="button" class="btn btn-danger " (click)="closeModel()"> No
+
+
+        </button>
+      </div> -->
+
+      <div *ngIf="actionsIconOrder == 1">
+
+        <div class="d-flex flex-column mb-7 fv-row">
+          <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Applied
+              Challan
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+          </label>
+          <input type="file" accept="application/pdf" class="form-control form-control-solid"
+            placeholder="Upload Document" (change)="fileUpload($event,'NAME_APPLICATION_CHALLAN')" /> -->
+
+
+
+          <div class="row pt-7 pb-7">
+            <div class="col-lg-6 fv-row">
+              <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Applied
+                  Challan</span> </label>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                <i *ngIf="uploadStatus.nameapplied" class="bi bi-check-circle-fill" style="color:green;"></i>
+                <span style="padding-left: 10px;" *ngIf="uploadStatus.nameapplied">
+                 {{uploadStatus.nameappliedFile}}</span>
+                <span *ngIf="!uploadStatus.nameapplied" style="color: white;">ABC</span>
+              </label>
+
+            </div>
+            <div class="col-lg-2 fv-row">
+              <div class="pt-8"></div>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                Browser
+                <input *ngIf="!uploadStatus.nameapplied" input type="file" style="display: none" accept="application/pdf"
+                  (change)="fileUpload($event,'NAME_APPLICATION_CHALLAN')" /> 
+              </label>
+
+
+
+            </div>
+          </div>
+
+        </div>
+        <div style="float: right;">
+
+
+          <button type="button" class="btn btn-primary " [disabled]="!uploadStatus.nameapplied" (click)="iconActon()">
+            Submit
+
+
+          </button>
+        </div>
+      </div>
+
+
+      <div *ngIf="actionsIconOrder == 2">
+
+
+
+        <div class="fv-row" [formGroup]="aproveForm">
+
+          <div class="row fv-row mb-7">
+            <div class="col-lg-6 fv-row">
+              <label class="form-label mb-3 required">Aproved Name</label>
+              <!-- <input type="text"
+                class="form-control form-control-lg form-control-solid" placeholder="Aproved Name"
+                formControlName="aprovedName" oninput="this.value = this.value.toUpperCase()" [ngClass]="{
+                  'is-invalid': aproveForm.controls['aprovedName'].touched && aproveForm.controls['aprovedName'].invalid,
+                  'is-valid': aproveForm.controls['aprovedName'].valid
+                }" /> -->
+              <select class="form-select form-select-solid form-select-lg" name="aprovedName"
+                formControlName="aprovedName" autocomplete="off">
+                <option value disabled selected>
+                  Select Applied Names ...
+                </option>
+                <option [value]="selectedCompanyDetails.proposedNameFirst">
+                  {{selectedCompanyDetails.proposedNameFirst}}
+                </option>
+                <option [value]="selectedCompanyDetails.proposedNameSecond">
+                  {{selectedCompanyDetails.proposedNameSecond}}
+                </option>
+
+              </select>
+
+              <!-- <div  class="text-info">The Proposed names for a Business should not exceed 2 </div> -->
+              <div *ngIf="
+                aproveForm.get('aprovedName')?.hasError('required') &&
+                aproveForm.get('aprovedName')?.touched
+                " class="fv-plugins-message-container invalid-feedback">
+                Aproved name required
+              </div>
+            </div>
+            
+          </div>
+          
+
+          <!-- <div class="d-flex flex-column mb-7 fv-row">
+            <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Aproved
+                Letter
+              </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+            </label>
+            <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+              placeholder="Upload Document" (change)="fileUpload($event,'NAME_APPROVAL_LETTER')" />
+          
+          </div> -->
+
+          <div class="row pt-7 pb-7">
+            <div class="col-lg-6 fv-row">
+              <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Aproved
+                Letter</span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                <i *ngIf="uploadStatus.nameaprove" class="bi bi-check-circle-fill" style="color:green;"></i>
+                <span style="padding-left: 10px;" *ngIf="uploadStatus.nameaprove">
+                 {{uploadStatus.nameappliedFile}}</span>
+                <span *ngIf="!uploadStatus.nameaprove" style="color: white;">ABC</span>
+              </label>
+
+            </div>
+            <div class="col-lg-2 fv-row">
+              <div class="pt-8"></div>
+              <label
+                class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                style="background: white;">
+                Browser
+                <input *ngIf="!uploadStatus.nameaprove" input type="file" style="display: none" accept="application/pdf"
+                  (change)="fileUpload($event,'NAME_APPROVAL_LETTER')" /> 
+              </label>
+
+
+
+            </div>
+          </div>
+          <div style="float: right;">
+
+
+            <button type="button" class="btn btn-primary " [disabled]="!aproveForm.valid || !uploadStatus.nameaprove"
+              (click)="iconActon()"> Submit
+
+
+            </button>
+          </div>
+
+
+        </div>
+
+
+
+
+      </div>
+
+      <div *ngIf="actionsIconOrder == 3">
+        <div class="d-flex flex-column mb-7 fv-row">
+          <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Applied
+              Rejection Letter
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+          </label>
+          <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+            placeholder="Upload Document" (change)="fileUpload($event,'NAME_APPLICATION_REJECTION_LETTER')" /> -->
+        
+            <div class="row pt-7 pb-7">
+              <div class="col-lg-6 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Applied
+                  Rejection Letter</span> </label>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  <i *ngIf="uploadStatus.namereject" class="bi bi-check-circle-fill" style="color:green;"></i>
+                  <span style="padding-left: 10px;" *ngIf="uploadStatus.namereject">
+                   {{uploadStatus.nameappliedFile}}</span>
+                  <span *ngIf="!uploadStatus.namereject" style="color: white;">ABC</span>
+                </label>
+  
+              </div>
+              <div class="col-lg-2 fv-row">
+                <div class="pt-8"></div>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  Browser
+                  <input *ngIf="!uploadStatus.namereject" input type="file" style="display: none" accept="application/pdf"
+                    (change)="fileUpload($event,'NAME_APPLICATION_REJECTION_LETTER')" /> 
+                </label>
+  
+  
+  
+              </div>
+            </div>
+
+        </div>
+        <div style="float: right;">
+
+
+          <button type="button" class="btn btn-primary " [disabled]="!uploadStatus.namereject" (click)="iconActon()">
+            Submit
+
+
+          </button>
+        </div>
+
+      </div>
+
+      <div *ngIf="actionsIconOrder == 4">
+        <div class="d-flex flex-column mb-7 fv-row">
+          <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Resubmit
+              Challan
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+          </label>
+          <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+            placeholder="Upload Document" (change)="fileUpload($event,'NAME_APPLICATION_RESUBMISSION_CHALLAN')" /> -->
+         
+
+            <div class="row pt-7 pb-7">
+              <div class="col-lg-6 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Name Resubmit
+                  Challan</span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  <i *ngIf="uploadStatus.nameresubmit" class="bi bi-check-circle-fill" style="color:green;"></i>
+                  <span style="padding-left: 10px;" *ngIf="uploadStatus.nameresubmit">
+                   {{uploadStatus.nameappliedFile}}</span>
+                  <span *ngIf="!uploadStatus.nameresubmit" style="color: white;">ABC</span>
+                </label>
+  
+              </div>
+              <div class="col-lg-2 fv-row">
+                <div class="pt-8"></div>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  Browser
+                  <input *ngIf="!uploadStatus.nameresubmit" input type="file" style="display: none" accept="application/pdf"
+                    (change)="fileUpload($event,'NAME_APPLICATION_RESUBMISSION_CHALLAN')" /> 
+                </label>
+  
+  
+  
+              </div>
+            </div>
+
+
+        </div>
+        <div style="float: right;">
+
+
+          <button type="button" class="btn btn-primary " [disabled]="!uploadStatus.nameresubmit" (click)="iconActon()">
+            Submit
+
+
+          </button>
+        </div>
+
+      </div>
+      <div *ngIf="actionsIconOrder == 7">
+        <div class="d-flex flex-column mb-7 fv-row">
+          <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">PAN , TAN Challan
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+          </label>
+          <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+            placeholder="Upload Document" (change)="fileUpload($event,'PAN_TAN_CHALLAN')" /> -->
+
+
+            <div class="row pt-7 pb-7">
+              <div class="col-lg-6 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">PAN , TAN Challan
+                 </span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  <i *ngIf="uploadStatus.pantan" class="bi bi-check-circle-fill" style="color:green;"></i>
+                  <span style="padding-left: 10px;" *ngIf="uploadStatus.pantan">
+                   {{uploadStatus.pantanFile}}</span>
+                  <span *ngIf="!uploadStatus.pantan" style="color: white;">ABC</span>
+                </label>
+  
+              </div>
+              <div class="col-lg-2 fv-row">
+                <div class="pt-8"></div>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  Browser
+                  <input *ngIf="!uploadStatus.pantan" input type="file" style="display: none" accept="application/pdf"
+                    (change)="fileUpload($event,'PAN_TAN_CHALLAN')" /> 
+                </label>
+  
+  
+  
+              </div>
+            </div>
+          
+
+
+        </div>
+
+        <div class="d-flex flex-column mb-7 fv-row">
+          <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">State Fee
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+          </label>
+          <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+            placeholder="Upload Document" (change)="fileUpload($event,'STATE_FEE_CHALLAN')" /> -->
+         
+
+            <div class="row pt-7 pb-7">
+              <div class="col-lg-6 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">State Fee
+                 </span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  <i *ngIf="uploadStatus.statefee" class="bi bi-check-circle-fill" style="color:green;"></i>
+                  <span style="padding-left: 10px;" *ngIf="uploadStatus.statefee">
+                   {{uploadStatus.statefeeFile}}</span>
+                  <span *ngIf="!uploadStatus.statefee" style="color: white;">ABC</span>
+                </label>
+  
+              </div>
+              <div class="col-lg-2 fv-row">
+                <div class="pt-8"></div>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  Browser
+                  <input *ngIf="!uploadStatus.statefee" input type="file" style="display: none" accept="application/pdf"
+                    (change)="fileUpload($event,'STATE_FEE_CHALLAN')" /> 
+                </label>
+  
+  
+  
+              </div>
+            </div>
+
+
+
+        </div>
+
+        <div style="float: right;">
+
+
+          <button type="button" class="btn btn-primary " [disabled]="!uploadStatus.pantan || !uploadStatus.statefee"
+            (click)="iconActon()"> Submit
+
+
+          </button>
+        </div>
+
+      </div>
+
+      <div *ngIf="actionsIconOrder == 8">
+
+
+
+        <div class="fv-row" [formGroup]="aproveForm">
+
+          <div class="row fv-row mb-7">
+            <!-- <div class="col-lg-4 fv-row">
+              <label class="form-label mb-3 required">Aproved Name</label><input type="text"
+                class="form-control form-control-lg form-control-solid" placeholder="Aproved Name"
+                formControlName="aprovedName" oninput="this.value = this.value.toUpperCase()" [ngClass]="{
+                  'is-invalid': aproveForm.controls['aprovedName'].touched && aproveForm.controls['aprovedName'].invalid,
+                  'is-valid': aproveForm.controls['aprovedName'].valid
+                }" />
+
+              
+              <div *ngIf="
+                aproveForm.get('aprovedName')?.hasError('required') &&
+                aproveForm.get('aprovedName')?.touched
+                " class="fv-plugins-message-container invalid-feedback">
+                Aproved name required
+              </div>
+            </div> -->
+            <div class="col-lg-6 fv-row">
+              <label class="form-label mb-3 required">PAN</label><input type="text"
+                class="form-control form-control-lg form-control-solid" placeholder="PAN" formControlName="pan"
+                oninput="this.value = this.value.toUpperCase()" [ngClass]="{
+                  'is-invalid': aproveForm.controls['pan'].touched && aproveForm.controls['pan'].invalid,
+                  'is-valid': aproveForm.controls['pan'].valid
+                }" />
+              <div *ngIf="
+                aproveForm.get('pan')?.hasError('required') &&
+                aproveForm.get('pan')?.touched
+                " class="fv-plugins-message-container invalid-feedback">
+                PAN required
+              </div>
+            </div>
+            <div class="col-lg-6 fv-row">
+              <label class="form-label mb-3 required">CIN</label><input type="text"
+                class="form-control form-control-lg form-control-solid" placeholder="CIN" formControlName="cin"
+                [ngClass]="{
+                  'is-invalid': aproveForm.controls['cin'].touched && aproveForm.controls['cin'].invalid,
+                  'is-valid': aproveForm.controls['cin'].valid
+                }" />
+              <div *ngIf="
+                aproveForm.get('cin')?.hasError('required') &&
+                aproveForm.get('cin')?.touched
+                " class="fv-plugins-message-container invalid-feedback">
+                CIN required
+              </div>
+            </div>
+          </div>
+          <div class="row fv-row mb-7">
+            <div class="col-lg-4 fv-row">
+              <label class="form-label fw-bolder text-dark fs-6">Date </label>
+              <input #licenseExpiration="ngbDatepicker" class="form-control form-control-lg form-control-solid"
+                formControlName="date" [readonly]="true" ngbDatepicker (click)="licenseExpiration.toggle()" />
+            </div>
+            <div class="col-lg-8 fv-row">
+              <label class="form-label mb-3 required">TAN</label><input type="text"
+                class="form-control form-control-lg form-control-solid" placeholder="TAN" formControlName="tan"
+                [ngClass]="{
+                  'is-invalid': aproveForm.controls['tan'].touched && aproveForm.controls['tan'].invalid,
+                  'is-valid': aproveForm.controls['tan'].valid
+                }" />
+              <div *ngIf="
+                aproveForm.get('tan')?.hasError('required') &&
+                aproveForm.get('tan')?.touched
+                " class="fv-plugins-message-container invalid-feedback">
+                TAN required
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex flex-column mb-7 fv-row">
+            <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">MOA
+              </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+            </label>
+            <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+              placeholder="Upload Document" (change)="fileUpload($event,'MOA')" /> -->
+            
+              <div class="row pt-7 pb-7">
+                <div class="col-lg-6 fv-row">
+                  <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">MOA
+                   </span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+                  <label
+                    class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                    style="background: white;">
+                    <i *ngIf="uploadStatus.moa" class="bi bi-check-circle-fill" style="color:green;"></i>
+                    <span style="padding-left: 10px;" *ngIf="uploadStatus.moa">
+                     {{uploadStatus.moaFile}}</span>
+                    <span *ngIf="!uploadStatus.moa" style="color: white;">ABC</span>
+                  </label>
+    
+                </div>
+                <div class="col-lg-2 fv-row">
+                  <div class="pt-8"></div>
+                  <label
+                    class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                    style="background: white;">
+                    Browser
+                    <input *ngIf="!uploadStatus.moa" input type="file" style="display: none" accept="application/pdf"
+                      (change)="fileUpload($event,'MOA')" /> 
+                  </label>
+    
+    
+    
+                </div>
+              </div>
+
+
+          </div>
+          <div class="d-flex flex-column mb-7 fv-row">
+            <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">AOA
+              </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+            </label>
+            <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+              placeholder="Upload Document" (change)="fileUpload($event,'AOA')" /> -->
+           
+
+              <div class="row pt-7 pb-7">
+                <div class="col-lg-6 fv-row">
+                  <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">AOA
+                   </span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+                  <label
+                    class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                    style="background: white;">
+                    <i *ngIf="uploadStatus.aoa" class="bi bi-check-circle-fill" style="color:green;"></i>
+                    <span style="padding-left: 10px;" *ngIf="uploadStatus.aoa">
+                     {{uploadStatus.aoaFile}}</span>
+                    <span *ngIf="!uploadStatus.aoa" style="color: white;">ABC</span>
+                  </label>
+    
+                </div>
+                <div class="col-lg-2 fv-row">
+                  <div class="pt-8"></div>
+                  <label
+                    class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                    style="background: white;">
+                    Browser
+                    <input *ngIf="!uploadStatus.aoa" input type="file" style="display: none" accept="application/pdf"
+                      (change)="fileUpload($event,'AOA')" /> 
+                  </label>
+    
+    
+    
+                </div>
+              </div>
+
+
+          </div>
+
+
+
+        </div>
+        <div class="d-flex flex-column mb-7 fv-row">
+          <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Incorporate
+              Certificate
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+          </label>
+          <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+            placeholder="Upload Document" (change)="fileUpload($event,'INCORPORATION_CERTIFICATE')" /> -->
+         
+
+            <div class="row pt-7 pb-7">
+              <div class="col-lg-6 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Incorporate
+                  Certificate
+                 </span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  <i *ngIf="uploadStatus.incorporate" class="bi bi-check-circle-fill" style="color:green;"></i>
+                  <span style="padding-left: 10px;" *ngIf="uploadStatus.incorporate">
+                   {{uploadStatus.incorporateFile}}</span>
+                  <span *ngIf="!uploadStatus.incorporate" style="color: white;">ABC</span>
+                </label>
+  
+              </div>
+              <div class="col-lg-2 fv-row">
+                <div class="pt-8"></div>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  Browser
+                  <input *ngIf="!uploadStatus.incorporate" input type="file" style="display: none" accept="application/pdf"
+                    (change)="fileUpload($event,'INCORPORATION_CERTIFICATE')" /> 
+                </label>
+  
+  
+  
+              </div>
+            </div>
+
+
+        </div>
+        <div style="float: right;">
+
+
+          <button type="button" class="btn btn-primary "
+            [disabled]="!aproveForm.valid || !uploadStatus.moa || !uploadStatus.aoa || !uploadStatus.incorporate"
+            (click)="iconActon()"> Submit
+
+
+          </button>
+        </div>
+
+
+
+      </div>
+
+      <div *ngIf="actionsIconOrder == 9">
+        <div class="d-flex flex-column mb-7 fv-row">
+          <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Spice Rejection
+              Letter
+            </span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+          </label>
+          <input type="file" accept="image/jpg,image/jpeg,application/pdf" class="form-control form-control-solid"
+            placeholder="Upload Document" (change)="fileUpload($event,'SPICE_REJECTION_LETTER')" /> -->
+          
+
+            <div class="row pt-7 pb-7">
+              <div class="col-lg-6 fv-row">
+                <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Spice Rejection
+                  Letter
+                 </span> <i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i> </label>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  <i *ngIf="uploadStatus.spicerejection" class="bi bi-check-circle-fill" style="color:green;"></i>
+                  <span style="padding-left: 10px;" *ngIf="uploadStatus.spicerejection">
+                   {{uploadStatus.nameappliedFile}}</span>
+                  <span *ngIf="!uploadStatus.spicerejection" style="color: white;">ABC</span>
+                </label>
+  
+              </div>
+              <div class="col-lg-2 fv-row">
+                <div class="pt-8"></div>
+                <label
+                  class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+                  style="background: white;">
+                  Browser
+                  <input *ngIf="!uploadStatus.spicerejection" input type="file" style="display: none" accept="application/pdf"
+                    (change)="fileUpload($event,'SPICE_REJECTION_LETTER')" /> 
+                </label>
+  
+  
+  
+              </div>
+            </div>
+
+
+        </div>
+
+        <div style="float: right;">
+
+
+          <button type="button" class="btn btn-primary " [disabled]="!uploadStatus.spicerejection"
+            (click)="iconActon()"> Submit
+
+
+          </button>
+        </div>
+
+      </div>
+
+      <div *ngIf="actionsIconOrder == 10">
+
+        <div class=" mb-5 mb-xl-10 ">
+          <label class="form-label mb-3 ">Are you sure?</label>
+          <div id="kt_account_profile_details" class="collapse show  ">
+
+
+
+            <div style="float: left;">
+
+
+              <button type="button" class="btn btn-primary " (click)="iconActon()"> Yes
+
+
+              </button>
+            </div>
+
+
+
+            <div style="float: right;">
+
+
+              <button type="button" class="btn btn-danger " (click)="closeModel()"> No
+
+
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+</app-modal>
+
+
+<!-- tab -->
+
+<app-modal #tab [modalConfig]="modalConfig">
+  <div class=" mb-5 mb-xl-10 ">
+
+
+    <div class="stepper stepper-links d-flex flex-column " id="kt_create_account_stepper">
+      <div class="container">
+
+
+        <!-- <div class="tab-slider--nav">
+
+        <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" [class.active]="viewMode == 'tab1'" rel="tab1" (click)="viewMode ='tab1'">Basic
+              Details</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab2'" rel="tab2" (click)="viewMode ='tab2'">Partner
+              Details</a>
+          </li>
+
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab3'" rel="tab3" (click)="viewMode ='tab3'">Company
+              Document</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab4'" rel="tab4" (click)="viewMode ='tab4'">Partner
+              Document</a>
+          </li>
+
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" [class.active]="viewMode == 'tab5'" rel="tab5" (click)="viewMode ='tab5'">Payment
+              Summery </a>
+          </li>
+          
+        </ul>
+
+        
+      </div> -->
+        <div class="stepper-nav mb-5 flex-fill container-fluid " style="overflow-x:scroll;white-space: nowrap;">
+          <div class="stepper-item" [class.active]="viewMode == 'tab1'" (click)="viewMode ='tab1'"
+            [ngClass]="{current: viewMode =='tab1'}">
+            <h6 style="color:gray;">Company</h6>
+            <h3 class="stepper-title">Basic Details</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab2'" (click)="viewMode ='tab2'"
+            [ngClass]="{current: viewMode =='tab2'}">
+            <h6 style="color:gray;">Stakeholders</h6>
+            <h3 class="stepper-title">Partner
+              Details</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab3'" rel="tab3" (click)="viewMode ='tab3'"
+            [ngClass]="{current: viewMode =='tab3'}">
+            <h6 style="color:gray;">Documents</h6>
+            <h3 class="stepper-title">Company
+              Document</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab4'" rel="tab4" (click)="viewMode ='tab4'"
+            [ngClass]="{current: viewMode =='tab4'}">
+            <h6 style="color:gray;">Documents</h6>
+            <h3 class="stepper-title">Partner
+              Document</h3>
+          </div>
+
+          <div class="stepper-item" [class.active]="viewMode == 'tab5'" rel="tab5" (click)="viewMode ='tab5'"
+            [ngClass]="{current: viewMode =='tab5'}">
+            <h6 style="color:gray;">Summery</h6>
+            <h3 class="stepper-title">Payment
+              Summery</h3>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="tab-slider--container" [ngSwitch]="viewMode">
+        <div id="tab1" class="tab-slider--body" *ngSwitchCase="'tab1'">
+
+          <div class="row">
+
+
+            <div class="col-lg-6" *ngIf="companydetails?.type == 'OPC'" style="color: white;">
+              <input name="type" type="radio" class="btn-check" id="opc" value="OPC" />
+              <label class="
+                btn btn-outline btn-outline-dashed btn-outline-default
+                p-2
+                d-flex
+                align-items-center
+              " for="opc">
+                <span [inlineSVG]="'./assets/media/icons/duotune/communication/com005.svg'"
+                  class="svg-icon svg-icon-2x me-5" style="color: white ;"></span>
+                <span class="d-block fw-bold text-start">
+                  <span class=" fw-bolder d-block fs-4 mb-2"> One Person Company</span>
+                  <!-- <span class="text-gray-400 fw-bold fs-6">
+      
+                </span> -->
+                </span>
+              </label>
+            </div>
+
+            <div *ngIf="companydetails?.type == 'PVT_LTD'" class="col-lg-6">
+              <input name="type" type="radio" class="btn-check" id="pvt" value="PVT_LTD" />
+              <label class="
+                btn 
+                p-2
+                d-flex
+                align-items-center
+                mb-10
+              " style="background: black;">
+                <span [inlineSVG]="'./assets/media/icons/duotune/communication/com005.svg'"
+                  class="svg-icon svg-icon-2x me-5" style="color:white"></span>
+                <span class="d-block fw-bold text-start">
+                  <span class=" fw-bolder d-block fs-4 mb-2" style="color:white"> Private Limited Company </span>
+                  <!-- <span class="text-gray-400 fw-bold fs-6">
+              
+                </span> -->
+                </span>
+              </label>
+            </div>
+
+            <div class="fv-plugins-message-container invalid-feedback">
+              <!-- <ErrorMessage name='type' /> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-10 fv-row">
+              <label class="form-label mb-3 required">Proposed Name Preference 1</label><input type="text"
+                class="form-control form-control-lg form-control-solid" placeholder="Proposed Name First"
+                [ngModel]="companydetails?.firstname" disabled />
+
+
+              <!-- <div  class="text-info">The Proposed names for a Business should not exceed 2 </div> -->
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-10 fv-row">
+              <label class="form-label mb-3 required">Proposed Name Preference 2</label><input type="text"
+                class="form-control form-control-lg form-control-solid" placeholder="Proposed Name Second"
+                [ngModel]="companydetails?.secondname" disabled />
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="mb-10 fv-row">
+              <label class="form-label mb-3 required">Industry</label>
+              <!-- {{industryList | json}} -->
+              <input type="text" class="form-control form-control-lg form-control-solid"
+                placeholder="Proposed Name Second" [ngModel]="companydetails?.industry" disabled />
+
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-10 fv-row">
+              <label class="form-label mb-3 required">Objectives</label>
+              <input type="text" class="form-control form-control-lg form-control-solid" placeholder="Objectives"
+                [ngModel]="companydetails?.objectives" />
+
+
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <!-- tab2 -->
+        <div id="tab2" class="tab-slider--body" *ngSwitchCase="'tab2'">
+
+          <div *ngFor="let partner of companydetails.partners ; let i = index ">
+            <div class="row fv-row mb-4">
+              <label class="form-label fw-bolder text-dark fs-6">PARTNER: {{i+1}}</label>
+            </div>
+            <div class="row fv-row mb-7">
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">First Name</label>
+                <input class="form-control form-control-lg form-control-solid" type="text" name="firstName"
+                  [ngModel]="partner?.firstName.name" disabled />
+
+              </div>
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Last Name</label>
+                <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+                  [ngModel]="partner?.lastName.name" disabled />
+
+
+              </div>
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Role</label>
+                <input class="form-control form-control-lg form-control-solid" type="text" name="lastName"
+                  [ngModel]="partner?.role" disabled />
+
+              </div>
+
+            </div>
+            <!--end::Form group-->
+            <div class="fv-row mb-7 row">
+
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Share</label>
+                <input class="form-control form-control-lg form-control-solid" type="number" [ngModel]="partner?.share"
+                  disabled />
+
+
+
+
+              </div>
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Gender</label>
+                <input class="form-control form-control-lg form-control-solid" type="text" [ngModel]="partner?.gender"
+                  disabled />
+
+              </div>
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Educational Qualification</label>
+                <input class="form-control form-control-lg form-control-solid" type="text"
+                  [ngModel]="partner?.educationalQualification" disabled />
+              </div>
+
+
+            </div>
+
+
+            <div class="fv-row mb-7 row">
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Occupation</label>
+                <input class="form-control form-control-lg form-control-solid" type="text"
+                  [ngModel]="partner?.occupation" disabled />
+              </div>
+
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Nationality</label>
+                <input class="form-control form-control-lg form-control-solid" type="text" min="1" max="100"
+                  [ngModel]="partner?.nationality" disabled />
+
+              </div>
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Email</label>
+                <input class="form-control form-control-lg form-control-solid" type="email"
+                  [ngModel]="partner?.email.email" disabled />
+
+
+
+              </div>
+
+            </div>
+
+            <!--begin::Form group-->
+            <div class="fv-row mb-7 row">
+
+
+              <div class="col-lg-4 fv-row">
+                <label class="form-label fw-bolder text-dark fs-6">Mobile</label>
+                <input class="form-control form-control-lg form-control-solid" type="text"
+                  [ngModel]="partner?.mobile.number" disabled />
+
+
+
+              </div>
+
+
+
+            </div>
+            <!--end::Form group-->
+
+
+            <!--begin::Form group-->
+            <div class="fv-row mb-7 row ">
+              <label class="form-label fw-bolder text-dark fs-6">Address </label>
+              <div class="">
+
+                <div class="row mt-4 mb-7">
+                  <div class="col-lg-4 fv-row">
+                    <label class="form-label fw-bolder text-dark fs-6">Line 1</label>
+                    <input class="form-control form-control-lg form-control-solid" type="text"
+                      [ngModel]="partner?.address.line1" disabled />
+
+                  </div>
+
+                  <div class="col-lg-4 fv-row">
+                    <label class="form-label fw-bolder text-dark fs-6">Line 2</label>
+                    <input class="form-control form-control-lg form-control-solid" type="text"
+                      [ngModel]="partner?.address.line2" disabled />
+                  </div>
+
+                  <div class="col-lg-4 fv-row">
+                    <label class="form-label fw-bolder text-dark fs-6">State </label>
+                    <input class="form-control form-control-lg form-control-solid" type="text"
+                      [ngModel]="partner?.address.state" disabled />
+
+
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 fv-row">
+                    <label class="form-label fw-bolder text-dark fs-6">Country</label>
+                    <input class="form-control form-control-lg form-control-solid" type="text"
+                      [ngModel]="partner.address.country" disabled />
+
+                  </div>
+                  <div class="col-lg-4 fv-row">
+                    <label class="form-label fw-bolder text-dark fs-6">Pincode</label>
+                    <input class="form-control form-control-lg form-control-solid" type="text"
+                      [ngModel]="partner?.address.pin" disabled />
+
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
+            <!--end::Form group-->
+
+            <!--begin::Form group-->
+
+            <!--end::Form group-->
+
+
+          </div>
+
+
+
+        </div>
+        <div id="tab3" class="tab-slider--body row" *ngSwitchCase="'tab3'">
+
+
+          <div class="tab-slider--nav col-4 border border-1" style="
+        border-radius: 10px;">
+
+
+            <ul class="nav nav-pills nav-fill mb-3 flex-column" id="ex1" role="tablist">
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark  rounded-3" role="presentation">
+
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab1'" rel="tab2-tab1"
+                  (click)="viewMode1 ='tab2-tab1'">
+
+                  <i *ngIf="companydetails.companyDocdown" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  Registered Address Proof</a>
+              </li>
+              <div class="pt-2"></div>
+
+              <li class="nav-item border border-dark rounded-3" role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab2'" rel="tab2-tab2"
+                  (click)="viewMode1 ='tab2-tab2'">
+                  <i *ngIf="companydetails.incorporatedoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  Incorporate Certificate</a>
+              </li>
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark rounded-3 " role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab3'" rel="tab2-tab3"
+                  (click)="viewMode1 ='tab2-tab3'">
+                  <i *ngIf="companydetails.pantandoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  Pan Tan Fee</a>
+              </li>
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark rounded-3 " role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab4'" rel="tab2-tab4"
+                  (click)="viewMode1 ='tab2-tab4'">
+                  <i *ngIf="companydetails.aoadoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  AOA</a>
+              </li>
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark  rounded-3" role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab5'" rel="tab2-tab5"
+                  (click)="viewMode1 ='tab2-tab5'">
+                  <i *ngIf="companydetails.nameapprovaldoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  Name Approval Letter</a>
+              </li>
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark rounded-3" role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab6'" rel="tab2-tab6"
+                  (click)="viewMode1 ='tab2-tab6'">
+                  <i *ngIf="companydetails.nameapplicationdoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  Name Application Challan</a>
+              </li>
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark rounded-3 " role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab7'" rel="tab2-tab7"
+                  (click)="viewMode1 ='tab2-tab7'">
+                  <i *ngIf="companydetails.nameapplicationrejectiondoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  Name Rejection Letter</a>
+              </li>
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark rounded-3 " role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab8'" rel="tab2-tab8"
+                  (click)="viewMode1 ='tab2-tab8'">
+                  <i *ngIf="companydetails.moadoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  MOA</a>
+              </li>
+              <div class="pt-2"></div>
+              <li class="nav-item border border-dark rounded-3 " role="presentation">
+                <a class="nav-link active" [class.active]="viewMode1 == 'tab2-tab9'" rel="tab2-tab9"
+                  (click)="viewMode1 ='tab2-tab9'">
+                  <i *ngIf="companydetails.statefeedoc" class="bi bi-check-circle-fill"
+                    style="color:green;float:left;padding-top: 4px;"></i>
+                  StateFeeChallan</a>
+              </li>
+
+            </ul>
+
+
+          </div>
+
+
+          <div class="tab-slider--container col-8 border border-1 rounded-3" [ngSwitch]="viewMode1">
+            <div id="tab2-tab1" class="tab-slider--body" *ngSwitchCase="'tab2-tab1'">
+
+              <div *ngIf="companydetails.companyDocdown">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+               width: 100%; position: relative;" [src]="companydetails?.companyDoc" frameborder="0"
+                allowfullscreen></iframe> -->
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.companyDoc" height="400px">
+                  </iframe>
+                </div>
+                <!-- <div class="embed-responsive embed-responsive-4by3">
+                  <iframe class="embed-responsive-item" [src]="companydetails?.companyDoc"></iframe>
+                </div> -->
+
+                <!-- <div class="row fv-row mb-7"> -->
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.companyDocdown}}"
+                    target="_blank" download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+                <!-- </div> -->
+              </div>
+              <div *ngIf="!companydetails.companyDocdown">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+
+            </div>
+            <div id="tab2-tab2" class="tab-slider--body" *ngSwitchCase="'tab2-tab2'">
+
+              <div *ngIf="companydetails.incorporatedoc">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.incorporatedoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.incorporatedoc" height="400px">
+                  </iframe>
+                </div>
+
+
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button"
+                    href="{{companydetails?.res.INCORPORATION_CERTIFICATE}}" target="_blank" download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.incorporatedoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+            </div>
+
+            <div id="tab2-tab3" class="tab-slider--body" *ngSwitchCase="'tab2-tab3'">
+
+              <div *ngIf="companydetails.pantandoc">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.pantandoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.pantandoc" height="400px">
+                  </iframe>
+                </div>
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.PAN_TAN_CHALLAN}}"
+                    target="_blank" download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.pantandoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+            </div>
+            <div id="tab2-tab4" class="tab-slider--body" *ngSwitchCase="'tab2-tab4'">
+
+              <div *ngIf="companydetails.aoadoc">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.aoadoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.aoadoc" height="400px">
+                  </iframe>
+                </div>
+
+
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.AOA}}" target="_blank"
+                    download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.aoadoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+            </div>
+
+            <div id="tab2-tab5" class="tab-slider--body" *ngSwitchCase="'tab2-tab5'">
+              <div *ngIf="companydetails.nameapprovaldoc">
+                <!-- 
+                <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.nameapprovaldoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.nameapprovaldoc" height="400px">
+                  </iframe>
+                </div>
+
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.NAME_APPROVAL_LETTER}}"
+                    target="_blank" download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.nameapprovaldoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+            </div>
+            <div id="tab2-tab6" class="tab-slider--body" *ngSwitchCase="'tab2-tab6'">
+              <div *ngIf="companydetails.nameapplicationdoc">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.nameapplicationdoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.nameapplicationdoc"
+                    height="400px">
+                  </iframe>
+                </div>
+
+
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button"
+                    href="{{companydetails?.res.NAME_APPLICATION_CHALLAN}}" target="_blank" download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.nameapplicationdoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+            </div>
+
+            <div id="tab2-tab7" class="tab-slider--body" *ngSwitchCase="'tab2-tab7'">
+              <div *ngIf="companydetails.nameapplicationrejectiondoc">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.nameapplicationrejectiondoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.nameapplicationrejectiondoc"
+                    height="400px">
+                  </iframe>
+                </div>
+
+
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button"
+                    href="{{companydetails?.res.NAME_APPLICATION_REJECTION_LETTER}}" target="_blank" download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.nameapplicationrejectiondoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;"> Not Uploaded</h3>
+
+              </div>
+
+            </div>
+
+            <div id="tab2-tab8" class="tab-slider--body" *ngSwitchCase="'tab2-tab8'">
+
+              <div *ngIf="companydetails.moadoc">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.moadoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.moadoc" height="400px">
+                  </iframe>
+                </div>
+
+
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.MOA}}" target="_blank"
+                    download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.moadoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+
+
+            </div>
+
+            <div id="tab2-tab9" class="tab-slider--body" *ngSwitchCase="'tab2-tab9'">
+
+              <div *ngIf="companydetails.statefeedoc">
+
+                <!-- <iframe style="overflow: hidden; height: 100%;
+              width: 100%; position: relative;" [src]="companydetails?.statefeedoc" frameborder="0"
+                  allowfullscreen></iframe> -->
+
+                <div class="row">
+                  <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="companydetails?.statefeedoc" height="400px">
+                  </iframe>
+                </div>
+
+
+
+                <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                  <a class="btn btn-outline btn-light" role="button" href="{{companydetails?.res.STATE_FEE_CHALLAN}}"
+                    target="_blank" download="address">
+                    <i class="bi bi-arrow-down"></i>
+                    Download
+                  </a>
+                </div>
+
+
+
+              </div>
+              <div *ngIf="!companydetails.statefeedoc">
+                <h3 style="position: absolute;
+              top: 50%;
+              left: 60%;
+              transform: translate(-50%, -50%);
+              font-family: 'Georgia';
+             
+              font-weight: bold;">Not Uploaded</h3>
+
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+        <div id="tab4" class="tab-slider--body row" *ngSwitchCase="'tab4'">
+          <div class="col-4 border border-1 rounded-3">
+            <div class="row" *ngFor="let partner of companydetails?.partnersDoc ; let i = index;">
+
+              <div class="mb-2  border border-1 rounded-3 pt-2 " (click)="toggleDiv(i)"
+                [ngClass]="{'myOwnBg': showTab === i  }">
+                <label class="form-label mb-3 p-2 ">Partner: {{partner?.name}}
+
+                </label>
+                <i *ngIf="showTab != i" class="bi bi-chevron-right"
+                  style="float:right;font-size:20px;padding-top: 5px;"></i>
+                <i *ngIf="showTab === i" class="bi bi-chevron-down"
+                  style="float:right;font-size:20px ;padding-top: 5px;"></i>
+
+              </div>
+
+
+
+              <div *ngIf="showTab == i" class="tab-slider--nav ">
+
+                <ul class="nav nav-pills nav-fill mb-3 flex-column" id="ex1" role="tablist">
+                  <li class="nav-item border border-dark rounded-3" role="presentation">
+                    <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab1'+i" rel="tab3-tab1{{i}}"
+                      (click)="loadImage(i,1)">
+                      Passport Photo</a>
+                  </li>
+                  <div class="pt-2"></div>
+                  <li class="nav-item border border-dark rounded-3" role="presentation">
+                    <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab2'+i" rel="tab3-tab2{{i}}"
+                      (click)="loadImage(i,2)">
+                      PAN</a>
+                  </li>
+                  <div class="pt-2"></div>
+                  <li class="nav-item border border-dark rounded-3" role="presentation">
+                    <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab3'+i" rel="tab3-tab3{{i}}"
+                      (click)="loadImage(i,3)">
+                      Supporting Document</a>
+                  </li>
+                  <div class="pt-2"></div>
+                  <li class="nav-item border border-dark rounded-3" role="presentation">
+                    <a class="nav-link active" [class.active]="viewMode2 == 'tab3-tab4'+i" rel="tab3-tab4{{i}}"
+                      (click)="loadImage(i,4)">
+                      Aadhar</a>
+                  </li>
+
+
+                </ul>
+
+
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <div class="col-8 border border-1 rounded-3">
+            <div *ngIf="downloadIframeDoc">
+              <div class="row">
+                <iframe class="col-lg-12 col-md-12 col-sm-12" [src]="showIframeDoc" height="400px">
+                </iframe>
+              </div>
+              <div style="position: absolute;
+                top: 25%;
+                left: 80%;">
+                <a class="btn btn-outline btn-light" role="button" href="{{downloadIframeDoc}}" target="_blank"
+                  download="address">
+                  <i class="bi bi-arrow-down"></i>
+                  Download
+                </a>
+              </div>
+            </div>
+            <div *ngIf="!downloadIframeDoc">
+              <h3 style="position: absolute;
+                top: 50%;
+                left: 60%;
+                transform: translate(-50%, -50%);
+                font-family: 'Georgia';
+               
+                font-weight: bold;">Not Uploaded</h3>
+
+            </div>
+
+          </div>
+          
+
+
+        </div>
+
+        <div id="tab5" class="tab-slider--body" *ngSwitchCase="'tab5'">
+          <div class="card-body py-3">
+            <!-- begin::Table container -->
+            <div class="table-responsive" style="background:#F8F8F8;border-radius: 10px;">
+              <!-- begin::Table -->
+              <table class="table table-row-gray-300 align-middle gs-0 gy-4">
+                <!-- begin::Table head -->
+                <thead class="border-bottom ">
+                  <tr class="fw-bolder text-muted">
+                    <th class="min-w-150px" style="padding-left:10px ;">Description</th>
+                    <th class="min-w-140px" style="padding-right:10px ;">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr class="border-bottom">
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Order Id
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        {{companydetails?.orderId}}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Payment Initiated At
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        {{companydetails?.paymentInitiatedAt | date}}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Paid At
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        {{companydetails?.paidAt | date}}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Payment Reference
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        {{companydetails?.paymentRef}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Payment Signature
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        {{companydetails?.paymentSignature}}
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Name Application Fee
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.nameApplicationFee?.amount}}
+                        {{companydetails?.nameApplicationFee?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            DSC
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.dsc?.amount}} {{companydetails?.dsc?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Pan Tan Fee
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.panTanFee?.amount}} {{companydetails?.panTanFee?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            State Fee
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.stateFee?.amount}} {{companydetails?.stateFee?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Professional Fee
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.professionalFee?.amount}} {{companydetails?.professionalFee?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            GST
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.gst?.amount}} {{companydetails?.gst?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Payment Gateway Fee
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.paymentGatewayFee?.amount}}
+                        {{companydetails?.paymentGatewayFee?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="d-flex justify-content-start flex-column">
+                          <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-left:10px ;">
+                            Payment Gateway Fee GST
+                          </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted fw-bold text-muted d-block fs-7" style="padding-right:10px ;">
+                        ₹ {{companydetails?.paymentGatewayFeeGst?.amount}}
+                        {{companydetails?.paymentGatewayFeeGst?.currency}}
+                      </span>
+                    </td>
+                  </tr>
+                  <!-- <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div class="d-flex justify-content-start flex-column">
+                        <a href="#" class="text-dark fw-bolder text-hover-primary fs-6">
+                          Total
+                        </a>
+                        <span class="text-muted fw-bold text-muted d-block fs-7">
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <a href="#" class="text-dark fw-bolder text-hover-primary d-block fs-6">
+                    </a>
+                    <span class="text-dark fw-bold text-dark d-block fs-7">
+                      ₹ 
+                    </span>
+                  </td>
+                </tr> -->
+                </tbody>
+                <!-- end::Table body -->
+              </table>
+              <!-- end::Table -->
+            </div>
+            <!-- end::Table container -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</app-modal>

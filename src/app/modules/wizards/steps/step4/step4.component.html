@@ -1,0 +1,101 @@
+<div class="pb-10 pb-lg-1">
+  <h2 class="fw-bolder text-dark">Company documents
+    <a class="link-primary fw-bolder fs-8" (click)="load(88000004662)"> &nbsp; Info</a>
+  </h2>
+  <!-- <div class="text-gray-400 fw-bold fs-6">
+    If you need more info, please check out
+    <a href="#" class="link-primary fw-bolder"> Help Page</a>.
+  </div> -->
+</div>
+
+
+
+
+
+
+<div class="pb-10 pb-lg-5">
+  <div class="row fv-row mb-7">
+    <div class="col-lg-12 fv-row">
+      <div class="mb-5  p-5 rounded"
+        style="background: #fefaf4;border-style: solid;border-color: #ffab48;border-width: 1px; word-wrap: break-word;">
+        <div class="text-dark mb-2 fw-bold  "><i class="fas fa-exclamation-circle  fs-7 "
+            style="color:#ffab48 ;"></i>&nbsp; Note</div>
+
+        If the address belongs to any of the partners, NOC must be provided by the owner at a later stage. If the
+        address belongs to a third party other than the partners,<br> a rent agreement is also required)
+        If you do not have any address right now, you can skip this <br> step for now. However, you will have to provide
+        this
+        within 30 days from the date of incorporation. This will be an additional cost to you!
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<div style="transition: opacity 1s linear 2s;" class="fv-row mb-3 row ">
+  <div class="row pt-7 pb-7">
+    <div class="col-lg-6 fv-row">
+      <!-- <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Company Address
+          Proof</span><i class="fas fa-exclamation-circle ms-2 fs-7"
+          ngbTooltip="Upload a valid address proof for the registered office of your new company. Accepted documents are electricity bill, telephone bill, gas bill. Document period must not be earlier than 2 months from today."></i>
+        <i *ngIf="formJson.compAdress" style="color: green;"class="bi bi-check2-all ms-2 fs-7"></i> </label>
+        <input *ngIf="!formJson.compAdress"
+        
+      type="file" accept="application/pdf," class="form-control form-control-solid" placeholder="Upload Document"
+        (change)="onSelectFile($event,1)" /> -->
+
+
+
+      <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Company Address
+          Proof</span><i class="fas fa-exclamation-circle ms-2 fs-7"
+          ngbTooltip="Upload a valid address proof for the registered office of your new company. Accepted documents are electricity bill, telephone bill, gas bill. Document period must not be earlier than 2 months from today."></i>
+        <i *ngIf="formJson.compAdress" style="color: green;" class="bi bi-check2-all ms-2 fs-7"></i> </label>
+      <label
+        class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+        style="background: white;">
+        <i *ngIf="formJson.compAdress" class="bi bi-check-circle-fill" style="color:green;"></i>
+        <span style="padding-left: 10px;" *ngIf="formJson?.addressFileName"> {{formJson?.addressFileName}}</span>
+        <span *ngIf="!formJson?.addressFileName" style="color: white;">ABC</span>
+      </label>
+
+    </div>
+    <div class="col-lg-2 fv-row">
+      <div class="pt-8"></div>
+      <label
+        class="d-flex align-items-center fs-6 fw-bold form-label mb-2 border rounded-3 form-control form-control-solid"
+        style="background: white;">
+        Browser
+        <input *ngIf="!formJson.compAdress" input type="file" style="display: none" accept="application/pdf"
+          (change)="onSelectFile($event,1)" />
+      </label>
+
+
+
+    </div>
+
+  </div>
+
+
+  <!-- <div class="d-flex flex-column mb-7 fv-row">
+    <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2"><span class="required">Company NOC
+        Proof</span><i class="fas fa-exclamation-circle ms-2 fs-7" ngbTooltip="Upload Document"></i>
+        <i *ngIf="formJson.compNoc" style="color: green;"class="bi bi-check2-all ms-2 fs-7"></i>
+      </label>
+      <input *ngIf="!formJson.compNoc" 
+      type="file" accept="application/pdf,image/jpeg," class="form-control form-control-solid" placeholder="Upload Document"
+      (change)="onSelectFile($event,2)" />
+   
+
+
+  </div> -->
+
+</div>
+
+<div class="fv-row mb-3 row ">
+  <app-step6 [uploadPartnerDoc]="partnerDocStatus"></app-step6>
+</div>
