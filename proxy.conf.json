@@ -1,0 +1,6 @@
+{
+  "/business": {
+    "target": "https://api-qa.incorpd.mavenstry.io",
+    "secure": false
+  }
+}
